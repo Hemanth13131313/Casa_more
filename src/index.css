@@ -7,34 +7,44 @@
 
 /* ─── TOKENS ─────────────────────────────────────────────── */
 :root {
-  --cream:        #FFF7E8; /* Coconut cream background */
-  --cream-mid:    #F5EEDB;
-  --cream-deep:   #EBDDC2;
-  --teal:         #205C60; /* Deep peacock teal - headings & primary buttons */
-  --teal-dark:    #164447;
-  --teal-bright:  #2B767B;
-  --teal-pale:    #E2F1F0;
-  --yellow:       #E2B34C; /* Golden ochre - sunshine & cheerful highlights */
-  --yellow-deep:  #CE9D35;
-  --yellow-pale:  #FBF4E2;
-  --coral:        #CC7455; /* Warm terracotta - decorative accents */
-  --coral-dark:   #B65F42;
-  --coral-pale:   #F9EFEB;
-  --green:        #587653; /* Tropical green - foliage */
-  --green-mid:    #456041;
-  --green-pale:   #EAF2E9;
-  --sky:          #86CDC6; /* Pool turquoise - illustrated water */
-  --sky-mid:      #6EBEB6;
-  --sky-deep:     #57AFA6;
-  --sky-pale:     #EBF7F6;
-  --peach:        #EBB097; /* Sunset peach */
-  --peach-warm:   #DF977B;
-  --terracotta:   #CC7455; /* Warm terracotta */
-  --ink:          #243C38; /* Deep charcoal green - body text & outlines */
-  --ink-light:    #3A5652;
-  --ink-muted:    #567570;
+  /* ─── CORAL SKY STAYS SIGNATURE BRAND PALETTE ─── */
+  --coral:        #E26A51; /* Exact signature Coral Sky logo color */
+  --coral-dark:   #C7543C; /* Sunset coral hover */
+  --coral-deep:   #A93F29;
+  --coral-pale:   #FDF3EE; /* Soft warm coral wash */
+  --coral-mid:    #F7DCD2;
+
+  --cream:        #FFF8F2; /* Soft oyster ivory from logo typography & lines */
+  --cream-mid:    #F6ECE3;
+  --cream-deep:   #EBDCCE;
   --white:        #FFFFFF;
-  --tile-accent:  #205C60;
+
+  --ink:          #261B18; /* Warm deep espresso charcoal for crystal clear readability */
+  --ink-light:    #4B3934;
+  --ink-muted:    #7A625B;
+
+  --yellow:       #EFA94A; /* Golden sunset glow from the sun arch */
+  --yellow-deep:  #D99233;
+  --yellow-pale:  #FDF6E9;
+
+  --green:        #446F55; /* Tropical green from the logo botanical frond */
+  --green-mid:    #355944;
+  --green-pale:   #EBF4EE;
+
+  --sky:          #76C4BA; /* Pool turquoise & ocean waves */
+  --sky-mid:      #5EB3A8;
+  --sky-deep:     #469E93;
+  --sky-pale:     #EAF6F4;
+
+  --teal:         #265D5B; /* Deep coastal teal */
+  --teal-dark:    #1B4443;
+  --teal-bright:  #337A77;
+  --teal-pale:    #E5F2F0;
+
+  --peach:        #F5BAA2; /* Sunset horizon peach */
+  --peach-warm:   #ECA487;
+  --terracotta:   #E26A51;
+  --tile-accent:  #E26A51;
 
   --font-display: 'Fredoka', 'Trebuchet MS', sans-serif;
   --font-body:    'DM Sans', 'Helvetica Neue', Arial, sans-serif;
@@ -57,11 +67,11 @@
   --radius-2xl:  56px;
   --radius-pill: 999px;
 
-  --shadow-sm:   0 2px 8px rgba(36, 60, 56, 0.08);
-  --shadow-md:   0 4px 20px rgba(36, 60, 56, 0.12);
-  --shadow-lg:   0 8px 40px rgba(36, 60, 56, 0.18);
-  --shadow-xl:   0 16px 64px rgba(36, 60, 56, 0.24);
-  --shadow-photo: 0 12px 48px rgba(36, 60, 56, 0.18), 0 2px 8px rgba(36, 60, 56, 0.10);
+  --shadow-sm:   0 2px 8px rgba(38, 27, 24, 0.08);
+  --shadow-md:   0 4px 20px rgba(38, 27, 24, 0.12);
+  --shadow-lg:   0 8px 40px rgba(38, 27, 24, 0.18);
+  --shadow-xl:   0 16px 64px rgba(38, 27, 24, 0.24);
+  --shadow-photo: 0 12px 48px rgba(38, 27, 24, 0.16), 0 2px 8px rgba(38, 27, 24, 0.08);
 
   --transition-fast:   150ms ease;
   --transition-normal: 220ms ease;
@@ -87,7 +97,7 @@ ul, ol { list-style: none; }
 h1, h2, h3, h4 {
   font-family: var(--font-display);
   line-height: 1.12;
-  color: var(--teal);
+  color: var(--ink);
   font-weight: 600;
 }
 h1 { font-size: clamp(40px, 6.5vw, 82px); }
@@ -101,7 +111,7 @@ p  { font-size: clamp(15px, 1.1vw, 17px); line-height: 1.72; color: var(--ink); 
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--teal);
+  color: var(--coral);
 }
 
 /* ─── LAYOUT ─────────────────────────────────────────────── */
@@ -131,44 +141,57 @@ p  { font-size: clamp(15px, 1.1vw, 17px); line-height: 1.72; color: var(--ink); 
 .btn:focus-visible { outline: 3px solid var(--yellow); outline-offset: 3px; }
 .btn:active { transform: scale(0.97); }
 
-/* Primary Button: Deep Peacock Teal */
+/* Primary Button: Signature Coral Sky */
 .btn-primary {
-  background: var(--teal);
+  background: var(--coral);
   color: var(--white);
-  border-color: var(--teal);
-  box-shadow: 0 4px 16px rgba(32, 92, 96, 0.32);
+  border-color: var(--coral);
+  box-shadow: 0 4px 18px rgba(226, 106, 81, 0.35);
 }
 .btn-primary:hover {
-  background: var(--teal-dark);
-  border-color: var(--teal-dark);
+  background: var(--coral-dark);
+  border-color: var(--coral-dark);
   transform: translateY(-2px);
-  box-shadow: 0 6px 24px rgba(32, 92, 96, 0.44);
+  box-shadow: 0 6px 24px rgba(226, 106, 81, 0.45);
 }
 
-/* Terracotta Button */
+/* Coral Button */
 .btn-coral {
   background: var(--coral);
   color: var(--white);
   border-color: var(--coral);
-  box-shadow: 0 4px 16px rgba(204, 116, 85, 0.30);
+  box-shadow: 0 4px 18px rgba(226, 106, 81, 0.35);
 }
 .btn-coral:hover {
   background: var(--coral-dark);
   border-color: var(--coral-dark);
   transform: translateY(-2px);
-  box-shadow: 0 6px 24px rgba(204, 116, 85, 0.42);
+  box-shadow: 0 6px 24px rgba(226, 106, 81, 0.45);
 }
 
-/* Golden Ochre Button */
+/* Golden Sunset Button */
 .btn-yellow {
   background: var(--yellow);
   color: var(--ink);
   border-color: var(--yellow);
-  box-shadow: 0 4px 16px rgba(226, 179, 76, 0.35);
+  box-shadow: 0 4px 16px rgba(239, 169, 74, 0.35);
 }
 .btn-yellow:hover {
   background: var(--yellow-deep);
   border-color: var(--yellow-deep);
+  transform: translateY(-2px);
+}
+
+/* Deep Coastal Teal Button */
+.btn-teal {
+  background: var(--teal);
+  color: var(--white);
+  border-color: var(--teal);
+  box-shadow: 0 4px 16px rgba(38, 93, 91, 0.30);
+}
+.btn-teal:hover {
+  background: var(--teal-dark);
+  border-color: var(--teal-dark);
   transform: translateY(-2px);
 }
 
@@ -189,9 +212,19 @@ p  { font-size: clamp(15px, 1.1vw, 17px); line-height: 1.72; color: var(--ink); 
   border-color: var(--ink);
 }
 .btn-outline-ink:hover {
-  background: var(--teal);
+  background: var(--coral);
   color: var(--white);
-  border-color: var(--teal);
+  border-color: var(--coral);
+}
+
+.btn-outline-coral {
+  background: transparent;
+  color: var(--coral);
+  border-color: var(--coral);
+}
+.btn-outline-coral:hover {
+  background: var(--coral);
+  color: var(--white);
 }
 
 .btn-sm { padding: 10px 20px; font-size: 13px; min-height: 40px; }
@@ -286,7 +319,7 @@ p  { font-size: clamp(15px, 1.1vw, 17px); line-height: 1.72; color: var(--ink); 
   position: fixed;
   bottom: 108px;
   right: 16px;
-  background: rgba(32, 92, 96, 0.88);
+  background: rgba(226, 106, 81, 0.90);
   color: var(--white);
   border: none;
   border-radius: var(--radius-pill);
@@ -299,7 +332,7 @@ p  { font-size: clamp(15px, 1.1vw, 17px); line-height: 1.72; color: var(--ink); 
   transition: background var(--transition-fast);
   letter-spacing: 0.03em;
 }
-.pause-btn:hover { background: var(--teal); }
+.pause-btn:hover { background: var(--coral-dark); }
 @media (max-width: 768px) { .pause-btn { bottom: 96px; } }
 
 /* ─── MOBILE BOOKING BAR ─────────────────────────────────── */
@@ -308,21 +341,21 @@ p  { font-size: clamp(15px, 1.1vw, 17px); line-height: 1.72; color: var(--ink); 
   position: fixed;
   bottom: 0; left: 0; right: 0;
   background: var(--white);
-  border-top: 1px solid rgba(36, 60, 56, 0.10);
+  border-top: 1px solid rgba(226, 106, 81, 0.15);
   padding: 12px var(--space-md);
   padding-bottom: max(12px, env(safe-area-inset-bottom));
   z-index: 100;
   align-items: center;
   justify-content: space-between;
   gap: var(--space-md);
-  box-shadow: 0 -4px 24px rgba(36, 60, 56, 0.10);
+  box-shadow: 0 -4px 24px rgba(38, 27, 24, 0.10);
 }
 @media (max-width: 900px) {
   .mobile-bar { display: flex; }
   body { padding-bottom: 76px; }
 }
 .mobile-bar-info { display: flex; flex-direction: column; gap: 2px; }
-.mobile-bar-name { font-family: var(--font-display); font-size: 16px; font-weight: 600; color: var(--teal); }
+.mobile-bar-name { font-family: var(--font-display); font-size: 16px; font-weight: 600; color: var(--coral); }
 .mobile-bar-meta { font-size: 12px; color: var(--ink-muted); }
 
 /* ─── WAVE TRANSITIONS ───────────────────────────────────── */
@@ -331,15 +364,15 @@ p  { font-size: clamp(15px, 1.1vw, 17px); line-height: 1.72; color: var(--ink); 
 
 /* ─── TILE PATTERN ───────────────────────────────────────── */
 .tile-bg {
-  background-image: radial-gradient(circle, rgba(32, 92, 96, 0.06) 1.5px, transparent 1.5px);
+  background-image: radial-gradient(circle, rgba(226, 106, 81, 0.07) 1.5px, transparent 1.5px);
   background-size: 24px 24px;
 }
 
 /* ─── SCROLLBAR ──────────────────────────────────────────── */
 ::-webkit-scrollbar { width: 7px; }
 ::-webkit-scrollbar-track { background: var(--cream); }
-::-webkit-scrollbar-thumb { background: var(--teal); border-radius: 4px; }
-:focus-visible { outline: 3px solid var(--teal); outline-offset: 2px; }
+::-webkit-scrollbar-thumb { background: var(--coral); border-radius: 4px; }
+:focus-visible { outline: 3px solid var(--coral); outline-offset: 2px; }
 
 /* ─── LIGHTBOX ───────────────────────────────────────────── */
 .lb-overlay {
