@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import './index.css';
 import './App.css';
 import {
@@ -9,12 +9,74 @@ import {
   AMENITIES,
   GALLERY_IMAGES,
   FAQS,
+  AREA_HIGHLIGHTS,
+  PRICING_CONFIG,
+  INITIAL_BOOKED_DATES,
 } from './content';
 
 // ─── AIRBNB BOOKING URL (Verified) ────────────────────────────
 const AIRBNB_URL = PROPERTY.airbnbUrl;
+const CURRENT_YEAR = new Date().getFullYear();
 
 // ─── SVG VECTOR ILLUSTRATION SYSTEM ───────────────────────────
+
+/** Coral Sky Stays Brand Logo Mark */
+const CoralSkyLogo = ({
+  className = '',
+  style = {},
+  size = 28,
+}: {
+  className?: string;
+  style?: React.CSSProperties;
+  size?: number;
+}) => (
+  <svg
+    viewBox="0 0 100 100"
+    xmlns="http://www.w3.org/2000/svg"
+    width={size}
+    height={size}
+    className={className}
+    style={style}
+    aria-hidden="true"
+    role="presentation"
+  >
+    {/* Sun Arch Dome */}
+    <path
+      d="M20 62 A30 30 0 0 1 80 62"
+      fill="none"
+      stroke="#FFF8E9"
+      strokeWidth="4.5"
+      strokeLinecap="round"
+    />
+    {/* Upper Rolling Wave */}
+    <path
+      d="M10 65 Q 26 55, 42 63 T 74 61 Q 84 58, 90 62"
+      fill="none"
+      stroke="#FFF8E9"
+      strokeWidth="4"
+      strokeLinecap="round"
+    />
+    {/* Lower Rolling Wave */}
+    <path
+      d="M16 73 Q 32 64, 48 71 T 82 69"
+      fill="none"
+      stroke="#FFF8E9"
+      strokeWidth="3.2"
+      strokeLinecap="round"
+    />
+    {/* Tropical Palm Sprig Accent */}
+    <path
+      d="M74 63 Q 82 50, 88 42"
+      fill="none"
+      stroke="#FFF8E9"
+      strokeWidth="3"
+      strokeLinecap="round"
+    />
+    <path d="M78 55 Q 86 52, 90 49" stroke="#FFF8E9" strokeWidth="2.5" strokeLinecap="round" />
+    <path d="M75 51 Q 82 45, 87 40" stroke="#FFF8E9" strokeWidth="2.5" strokeLinecap="round" />
+    <path d="M82 47 Q 88 39, 93 36" stroke="#FFF8E9" strokeWidth="2.2" strokeLinecap="round" />
+  </svg>
+);
 
 /** Striped Coral & Cream Swim Ring */
 const CoralTube = ({
@@ -36,34 +98,34 @@ const CoralTube = ({
     role="presentation"
   >
     {/* Drop shadow */}
-    <ellipse cx="60" cy="106" rx="42" ry="10" fill="rgba(23, 58, 64, 0.16)" />
+    <ellipse cx="60" cy="106" rx="42" ry="10" fill="rgba(23, 62, 59, 0.16)" />
     {/* Outer tube circle */}
-    <circle cx="60" cy="56" r="48" fill="#FF6B6B" stroke="#173A40" strokeWidth="3" />
+    <circle cx="60" cy="56" r="48" fill="#F16D4D" stroke="#173E3B" strokeWidth="3" />
     {/* Alternating cream stripes */}
     <path
       d="M60 8 A48 48 0 0 1 108 56 L88 56 A28 28 0 0 0 60 28 Z"
-      fill="#FFF7E6"
-      stroke="#173A40"
+      fill="#FFF8E9"
+      stroke="#173E3B"
       strokeWidth="2.5"
     />
     <path
       d="M60 104 A48 48 0 0 1 12 56 L32 56 A28 28 0 0 0 60 84 Z"
-      fill="#FFF7E6"
-      stroke="#173A40"
+      fill="#FFF8E9"
+      stroke="#173E3B"
       strokeWidth="2.5"
     />
-    {/* Inner hole */}
-    <circle cx="60" cy="56" r="28" fill="#BDEBFA" stroke="#173A40" strokeWidth="3" />
+    {/* Inner hole with pool water reflection */}
+    <circle cx="60" cy="56" r="28" fill="#8AD8CE" stroke="#173E3B" strokeWidth="3" />
     {/* Inflated gloss highlight */}
     <path
       d="M36 34 Q60 18, 84 34"
-      stroke="rgba(255, 255, 255, 0.6)"
+      stroke="rgba(255, 255, 255, 0.65)"
       strokeWidth="5"
       strokeLinecap="round"
       fill="none"
     />
     {/* Subtle 3D inner shade */}
-    <circle cx="60" cy="56" r="28" fill="none" stroke="rgba(23, 58, 64, 0.15)" strokeWidth="4" />
+    <circle cx="60" cy="56" r="28" fill="none" stroke="rgba(23, 62, 59, 0.15)" strokeWidth="4" />
   </svg>
 );
 
@@ -84,9 +146,9 @@ const YellowTube = ({
     role="presentation"
   >
     {/* Drop shadow */}
-    <ellipse cx="60" cy="104" rx="40" ry="9" fill="rgba(23, 58, 64, 0.14)" />
+    <ellipse cx="60" cy="104" rx="40" ry="9" fill="rgba(23, 62, 59, 0.14)" />
     {/* Tube outer body */}
-    <circle cx="60" cy="56" r="46" fill="#FFC857" stroke="#173A40" strokeWidth="3" />
+    <circle cx="60" cy="56" r="46" fill="#F7D664" stroke="#173E3B" strokeWidth="3" />
     {/* Polka dots */}
     {[0, 60, 120, 180, 240, 300].map((angle) => {
       const rad = (angle * Math.PI) / 180;
@@ -98,14 +160,14 @@ const YellowTube = ({
           cx={x}
           cy={y}
           r="5.5"
-          fill="#087F8C"
-          stroke="#173A40"
+          fill="#173E3B"
+          stroke="#173E3B"
           strokeWidth="1.5"
         />
       );
     })}
     {/* Inner hole */}
-    <circle cx="60" cy="56" r="26" fill="#BDEBFA" stroke="#173A40" strokeWidth="3" />
+    <circle cx="60" cy="56" r="26" fill="#8AD8CE" stroke="#173E3B" strokeWidth="3" />
     {/* Highlight curve */}
     <path
       d="M38 32 Q60 20, 82 32"
@@ -133,18 +195,18 @@ const TealTube = ({
     aria-hidden="true"
     role="presentation"
   >
-    <ellipse cx="60" cy="104" rx="38" ry="8" fill="rgba(23, 58, 64, 0.12)" />
-    <circle cx="60" cy="56" r="46" fill="#087F8C" stroke="#173A40" strokeWidth="3" />
+    <ellipse cx="60" cy="104" rx="38" ry="8" fill="rgba(23, 62, 59, 0.12)" />
+    <circle cx="60" cy="56" r="46" fill="#8AD8CE" stroke="#173E3B" strokeWidth="3" />
     {/* Mini tropical hibiscus/palm prints */}
-    <circle cx="40" cy="38" r="4" fill="#FF6B6B" />
-    <circle cx="80" cy="40" r="4" fill="#FFC857" />
-    <circle cx="78" cy="74" r="4" fill="#FF6B6B" />
-    <circle cx="42" cy="74" r="4" fill="#FFC857" />
+    <circle cx="40" cy="38" r="4" fill="#F16D4D" />
+    <circle cx="80" cy="40" r="4" fill="#F7D664" />
+    <circle cx="78" cy="74" r="4" fill="#F16D4D" />
+    <circle cx="42" cy="74" r="4" fill="#F7D664" />
     {/* Inner hole */}
-    <circle cx="60" cy="56" r="26" fill="#BDEBFA" stroke="#173A40" strokeWidth="3" />
+    <circle cx="60" cy="56" r="26" fill="#FFF8E9" stroke="#173E3B" strokeWidth="3" />
     <path
       d="M38 32 Q60 20, 82 32"
-      stroke="rgba(255, 255, 255, 0.55)"
+      stroke="rgba(255, 255, 255, 0.65)"
       strokeWidth="4"
       strokeLinecap="round"
       fill="none"
@@ -184,7 +246,7 @@ const SunIllustration = ({
           y1={y1}
           x2={x2}
           y2={y2}
-          stroke={sunset ? '#FF8C42' : '#FFC857'}
+          stroke={sunset ? '#F16D4D' : '#F7D664'}
           strokeWidth="4"
           strokeLinecap="round"
         />
@@ -195,27 +257,27 @@ const SunIllustration = ({
       cx="70"
       cy="70"
       r="36"
-      fill={sunset ? 'url(#sunsetSunGrad)' : '#FFC857'}
-      stroke="#173A40"
+      fill={sunset ? 'url(#sunsetSunGrad)' : '#F7D664'}
+      stroke="#173E3B"
       strokeWidth="3"
     />
     {/* Cheek blush */}
-    <circle cx="56" cy="74" r="5" fill={sunset ? '#E85252' : '#FF9E6B'} opacity="0.5" />
-    <circle cx="84" cy="74" r="5" fill={sunset ? '#E85252' : '#FF9E6B'} opacity="0.5" />
+    <circle cx="56" cy="74" r="5" fill={sunset ? '#D85A3C' : '#F7B795'} opacity="0.6" />
+    <circle cx="84" cy="74" r="5" fill={sunset ? '#D85A3C' : '#F7B795'} opacity="0.6" />
     {/* Cute eyes & smile */}
-    <circle cx="58" cy="66" r="3" fill="#173A40" />
-    <circle cx="82" cy="66" r="3" fill="#173A40" />
+    <circle cx="58" cy="66" r="3" fill="#173E3B" />
+    <circle cx="82" cy="66" r="3" fill="#173E3B" />
     <path
       d="M65 74 Q70 80, 75 74"
-      stroke="#173A40"
+      stroke="#173E3B"
       strokeWidth="2.5"
       strokeLinecap="round"
       fill="none"
     />
     <defs>
       <linearGradient id="sunsetSunGrad" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%" stopColor="#FFC857" />
-        <stop offset="100%" stopColor="#FF6B6B" />
+        <stop offset="0%" stopColor="#F7D664" />
+        <stop offset="100%" stopColor="#F16D4D" />
       </linearGradient>
     </defs>
   </svg>
@@ -246,7 +308,7 @@ const PalmIllustration = ({
           ? 'M70 235 Q78 160, 85 110 Q90 60, 95 30'
           : 'M90 235 Q82 160, 75 110 Q70 60, 65 30'
       }
-      stroke="#26734D"
+      stroke="#397B58"
       strokeWidth="11"
       strokeLinecap="round"
       fill="none"
@@ -256,42 +318,42 @@ const PalmIllustration = ({
       {/* Frond 1 */}
       <path
         d="M0 0 Q-40 -40, -75 -25 Q-50 -10, 0 0"
-        fill="#26734D"
-        stroke="#173A40"
+        fill="#397B58"
+        stroke="#173E3B"
         strokeWidth="2"
       />
       {/* Frond 2 */}
       <path
         d="M0 0 Q-15 -60, 15 -65 Q10 -35, 0 0"
-        fill="#26734D"
-        stroke="#173A40"
+        fill="#397B58"
+        stroke="#173E3B"
         strokeWidth="2"
       />
       {/* Frond 3 */}
       <path
         d="M0 0 Q45 -55, 75 -25 Q50 -5, 0 0"
-        fill="#26734D"
-        stroke="#173A40"
+        fill="#397B58"
+        stroke="#173E3B"
         strokeWidth="2"
       />
       {/* Frond 4 */}
       <path
         d="M0 0 Q60 -10, 75 25 Q45 20, 0 0"
-        fill="#26734D"
-        stroke="#173A40"
+        fill="#397B58"
+        stroke="#173E3B"
         strokeWidth="2"
       />
       {/* Frond 5 */}
       <path
         d="M0 0 Q-50 10, -70 35 Q-40 20, 0 0"
-        fill="#26734D"
-        stroke="#173A40"
+        fill="#397B58"
+        stroke="#173E3B"
         strokeWidth="2"
       />
       {/* Coconuts */}
-      <circle cx="-6" cy="6" r="6" fill="#8B6914" stroke="#173A40" strokeWidth="1.8" />
-      <circle cx="6" cy="8" r="6.5" fill="#8B6914" stroke="#173A40" strokeWidth="1.8" />
-      <circle cx="1" cy="14" r="5.5" fill="#8B6914" stroke="#173A40" strokeWidth="1.8" />
+      <circle cx="-6" cy="6" r="6" fill="#7A5D12" stroke="#173E3B" strokeWidth="1.8" />
+      <circle cx="6" cy="8" r="6.5" fill="#7A5D12" stroke="#173E3B" strokeWidth="1.8" />
+      <circle cx="1" cy="14" r="5.5" fill="#7A5D12" stroke="#173E3B" strokeWidth="1.8" />
     </g>
   </svg>
 );
@@ -315,7 +377,7 @@ const TravelBag = ({
     {/* Handle */}
     <path
       d="M38 36 V24 C38 18, 62 18, 62 24 V36"
-      stroke="#173A40"
+      stroke="#173E3B"
       strokeWidth="3.5"
       fill="none"
       strokeLinecap="round"
@@ -327,18 +389,18 @@ const TravelBag = ({
       width="68"
       height="52"
       rx="12"
-      fill="#FFC857"
-      stroke="#173A40"
+      fill="#F7D664"
+      stroke="#173E3B"
       strokeWidth="3"
     />
     {/* Leather straps */}
-    <rect x="28" y="36" width="8" height="52" fill="#E0921E" stroke="#173A40" strokeWidth="2" />
-    <rect x="64" y="36" width="8" height="52" fill="#E0921E" stroke="#173A40" strokeWidth="2" />
+    <rect x="28" y="36" width="8" height="52" fill="#D4861A" stroke="#173E3B" strokeWidth="2" />
+    <rect x="64" y="36" width="8" height="52" fill="#D4861A" stroke="#173E3B" strokeWidth="2" />
     {/* Brass buckle */}
-    <rect x="29" y="58" width="6" height="8" rx="2" fill="#FFF7E6" stroke="#173A40" strokeWidth="1.5" />
-    <rect x="65" y="58" width="6" height="8" rx="2" fill="#FFF7E6" stroke="#173A40" strokeWidth="1.5" />
+    <rect x="29" y="58" width="6" height="8" rx="2" fill="#FFF8E9" stroke="#173E3B" strokeWidth="1.5" />
+    <rect x="65" y="58" width="6" height="8" rx="2" fill="#FFF8E9" stroke="#173E3B" strokeWidth="1.5" />
     {/* Luggage tag */}
-    <path d="M48 36 L52 48 L44 48 Z" fill="#FF6B6B" stroke="#173A40" strokeWidth="1.5" />
+    <path d="M48 36 L52 48 L44 48 Z" fill="#F16D4D" stroke="#173E3B" strokeWidth="1.5" />
   </svg>
 );
 
@@ -359,18 +421,18 @@ const StripedUmbrella = ({
     role="presentation"
   >
     {/* Pole */}
-    <line x1="50" y1="42" x2="50" y2="114" stroke="#173A40" strokeWidth="3.5" strokeLinecap="round" />
+    <line x1="50" y1="42" x2="50" y2="114" stroke="#173E3B" strokeWidth="3.5" strokeLinecap="round" />
     {/* Canopy */}
     <path
       d="M10 44 Q50 8, 90 44 Z"
-      fill="#FF6B6B"
-      stroke="#173A40"
+      fill="#F16D4D"
+      stroke="#173E3B"
       strokeWidth="2.5"
     />
     {/* Cream stripes */}
-    <path d="M30 44 Q44 20, 50 12 Q56 20, 70 44 Z" fill="#FFF7E6" stroke="#173A40" strokeWidth="2" />
+    <path d="M30 44 Q44 20, 50 12 Q56 20, 70 44 Z" fill="#FFF8E9" stroke="#173E3B" strokeWidth="2" />
     {/* Finial top */}
-    <circle cx="50" cy="11" r="3" fill="#FFC857" stroke="#173A40" strokeWidth="1.5" />
+    <circle cx="50" cy="11" r="3" fill="#F7D664" stroke="#173E3B" strokeWidth="1.5" />
   </svg>
 );
 
@@ -390,68 +452,241 @@ const StripedTowel = ({
     aria-hidden="true"
     role="presentation"
   >
-    <rect x="10" y="10" width="80" height="40" rx="4" fill="#FF6B6B" stroke="#173A40" strokeWidth="2" />
-    <rect x="25" y="10" width="12" height="40" fill="#FFF7E6" />
-    <rect x="47" y="10" width="12" height="40" fill="#FFF7E6" />
-    <rect x="69" y="10" width="12" height="40" fill="#FFF7E6" />
+    <rect x="10" y="10" width="80" height="40" rx="4" fill="#F16D4D" stroke="#173E3B" strokeWidth="2" />
+    <rect x="25" y="10" width="12" height="40" fill="#FFF8E9" />
+    <rect x="47" y="10" width="12" height="40" fill="#FFF8E9" />
+    <rect x="69" y="10" width="12" height="40" fill="#FFF8E9" />
     {/* Fringe ends */}
-    <line x1="10" y1="14" x2="6" y2="14" stroke="#173A40" strokeWidth="1.5" />
-    <line x1="10" y1="24" x2="6" y2="24" stroke="#173A40" strokeWidth="1.5" />
-    <line x1="10" y1="34" x2="6" y2="34" stroke="#173A40" strokeWidth="1.5" />
-    <line x1="10" y1="44" x2="6" y2="44" stroke="#173A40" strokeWidth="1.5" />
+    <line x1="10" y1="14" x2="6" y2="14" stroke="#173E3B" strokeWidth="1.5" />
+    <line x1="10" y1="24" x2="6" y2="24" stroke="#173E3B" strokeWidth="1.5" />
+    <line x1="10" y1="34" x2="6" y2="34" stroke="#173E3B" strokeWidth="1.5" />
+    <line x1="10" y1="44" x2="6" y2="44" stroke="#173E3B" strokeWidth="1.5" />
   </svg>
 );
 
-// ─── EXPLORER TAB ICONS ───────────────────────────────────────
-const BedIcon = () => (
-  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-    <path d="M3 7v11M21 7v11M3 13h18M3 9h18a2 2 0 0 1 2 2v2H1v-2a2 2 0 0 1 2-2z" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-    <circle cx="7" cy="10" r="1.5" fill="currentColor"/>
-    <circle cx="17" cy="10" r="1.5" fill="currentColor"/>
+/** Tropical Coconut Drink */
+const CoconutDrink = ({
+  className = '',
+  style = {},
+}: {
+  className?: string;
+  style?: React.CSSProperties;
+}) => (
+  <svg
+    viewBox="0 0 80 80"
+    xmlns="http://www.w3.org/2000/svg"
+    className={className}
+    style={style}
+    aria-hidden="true"
+    role="presentation"
+  >
+    {/* Straw */}
+    <path d="M48 20 L58 6 L64 10" stroke="#F16D4D" strokeWidth="3" strokeLinecap="round" fill="none" />
+    {/* Coconut body */}
+    <path
+      d="M20 40 C 20 62, 60 62, 60 40 C 60 38, 20 38, 20 40 Z"
+      fill="#7A5D12"
+      stroke="#173E3B"
+      strokeWidth="2.5"
+    />
+    {/* Inner coconut water top */}
+    <ellipse cx="40" cy="38" rx="19" ry="6" fill="#FFF8E9" stroke="#173E3B" strokeWidth="1.8" />
+    {/* Lime slice */}
+    <circle cx="28" cy="32" r="7" fill="#8AD8CE" stroke="#173E3B" strokeWidth="1.5" />
+    <circle cx="28" cy="32" r="4.5" fill="#397B58" />
   </svg>
 );
 
-const ArmchairIcon = () => (
-  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-    <path d="M5 11V7a3 3 0 0 1 3-3h8a3 3 0 0 1 3 3v4M4 11h16v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-6zM3 14h2M19 14h2M6 19v2M18 19v2" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+/** Cool Sunglasses */
+const Sunglasses = ({
+  className = '',
+  style = {},
+}: {
+  className?: string;
+  style?: React.CSSProperties;
+}) => (
+  <svg
+    viewBox="0 0 90 40"
+    xmlns="http://www.w3.org/2000/svg"
+    className={className}
+    style={style}
+    aria-hidden="true"
+    role="presentation"
+  >
+    {/* Left Frame */}
+    <rect x="8" y="8" width="32" height="22" rx="9" fill="#173E3B" stroke="#173E3B" strokeWidth="2" />
+    {/* Right Frame */}
+    <rect x="50" y="8" width="32" height="22" rx="9" fill="#173E3B" stroke="#173E3B" strokeWidth="2" />
+    {/* Bridge */}
+    <path d="M40 16 Q 45 13, 50 16" stroke="#173E3B" strokeWidth="3" fill="none" strokeLinecap="round" />
+    {/* Left Lens Reflection */}
+    <ellipse cx="20" cy="18" rx="9" ry="6" fill="#8AD8CE" opacity="0.8" />
+    {/* Right Lens Reflection */}
+    <ellipse cx="62" cy="18" rx="9" ry="6" fill="#8AD8CE" opacity="0.8" />
   </svg>
 );
 
-const CoffeeCupIcon = () => (
-  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-    <path d="M18 8h1a4 4 0 0 1 0 8h-1M3 8h15v8a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V8zM6 2v3M10 2v3M14 2v3" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-  </svg>
-);
-
-const PottedPlantIcon = () => (
-  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-    <path d="M7 14h10l-1.5 7h-7L7 14z" stroke="currentColor" strokeWidth="2" strokeLinejoin="round"/>
-    <path d="M12 14V6M12 6c-3-2-5 1-5 4 3 0 5-2 5-4zM12 9c3-2 5 1 5 4-3 0-5-2-5-4z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-  </svg>
-);
-
-// ─── AMENITY / LUGGAGE ICONS ─────────────────────────────────
-const getLucideOrEmoji = (id: string) => {
-  const map: Record<string, string> = {
-    users: '👥',
-    bed: '🛏️',
-    bath: '🚿',
-    pool: '🏊',
-    shield: '🏡',
-    car: '⚡',
-    wifi: '📶',
-    ac: '❄️',
-    parking: '🅿️',
-    ev: '🔌',
-    workspace: '💻',
-    kitchen: '🍳',
-    washer: '🫧',
-    tv: '📺',
-    balcony: '🌿',
-    coffee: '☕',
-    compass: '🧭',
-  };
-  return map[id] || '✨';
+// ─── CUSTOM VECTOR ICONS (No generic emojis) ───────────────────
+const SvgIcon = ({ name, size = 20, color = 'currentColor' }: { name: string; size?: number; color?: string }) => {
+  switch (name) {
+    case 'users':
+      return (
+        <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+        </svg>
+      );
+    case 'bed':
+      return (
+        <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <path d="M2 4v16"/><path d="M2 8h18a2 2 0 0 1 2 2v10"/><path d="M2 17h20"/><path d="M6 8v9"/>
+        </svg>
+      );
+    case 'bath':
+      return (
+        <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <path d="M4 12h16a1 1 0 0 1 1 1v3a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4v-3a1 1 0 0 1 1-1Z"/><path d="M6 12V5a2 2 0 0 1 2-2h3v2"/><circle cx="15" cy="5" r="1"/>
+        </svg>
+      );
+    case 'pool':
+      return (
+        <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <path d="M2 6c.6.5 1.2 1 2.5 1C7 7 7 5 9.5 5c2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/><path d="M2 12c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/><path d="M2 18c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/>
+        </svg>
+      );
+    case 'shield':
+      return (
+        <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+        </svg>
+      );
+    case 'car':
+    case 'parking':
+      return (
+        <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <rect x="4" y="4" width="16" height="16" rx="3"/><path d="M9 16V8h4a2 2 0 0 1 0 4H9"/>
+        </svg>
+      );
+    case 'wifi':
+      return (
+        <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/>
+        </svg>
+      );
+    case 'ac':
+      return (
+        <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <rect x="2" y="4" width="20" height="8" rx="2"/><path d="M6 16v3M10 16v3M14 16v3M18 16v3"/>
+        </svg>
+      );
+    case 'ev':
+      return (
+        <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/>
+        </svg>
+      );
+    case 'workspace':
+      return (
+        <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>
+        </svg>
+      );
+    case 'kitchen':
+      return (
+        <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <path d="M4 19h16v-7a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v7Z"/><circle cx="9" cy="14" r="1.5"/><circle cx="15" cy="14" r="1.5"/>
+        </svg>
+      );
+    case 'washer':
+      return (
+        <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <rect x="3" y="2" width="18" height="20" rx="3"/><circle cx="12" cy="13" r="5"/><circle cx="12" cy="6" r="1"/>
+        </svg>
+      );
+    case 'tv':
+      return (
+        <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <rect x="2" y="7" width="20" height="13" rx="2"/><polyline points="17 2 12 7 7 2"/>
+        </svg>
+      );
+    case 'balcony':
+      return (
+        <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <path d="M3 10h18v10H3z"/><path d="M7 10v10M11 10v10M15 10v10M19 10v10"/><path d="M4 4h16"/>
+        </svg>
+      );
+    case 'coffee':
+      return (
+        <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M3 8h15v8a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V8z"/><line x1="6" y1="2" x2="6" y2="4"/><line x1="10" y1="2" x2="10" y2="4"/><line x1="14" y1="2" x2="14" y2="4"/>
+        </svg>
+      );
+    case 'compass':
+      return (
+        <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/>
+        </svg>
+      );
+    case 'beach':
+      return (
+        <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <circle cx="12" cy="4" r="2"/><path d="M12 9v13"/><path d="M5 9c2-2 12-2 14 0"/><path d="M2 19c3-1 6-1 10 0 4 1 7 1 10 0"/>
+        </svg>
+      );
+    case 'cafe':
+      return (
+        <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <path d="M17 8h1a4 4 0 0 1 0 8h-1"/><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V8z"/><path d="M6 2v3M10 2v3M14 2v3"/>
+        </svg>
+      );
+    case 'market':
+      return (
+        <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/>
+        </svg>
+      );
+    case 'heritage':
+      return (
+        <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>
+        </svg>
+      );
+    case 'calendar':
+      return (
+        <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+        </svg>
+      );
+    case 'check':
+      return (
+        <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <polyline points="20 6 9 17 4 12"/>
+        </svg>
+      );
+    case 'armchair':
+      return (
+        <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <path d="M5 11V7a3 3 0 0 1 3-3h8a3 3 0 0 1 3 3v4M4 11h16v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-6zM3 14h2M19 14h2M6 19v2M18 19v2"/>
+        </svg>
+      );
+    case 'cup':
+      return (
+        <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <path d="M18 8h1a4 4 0 0 1 0 8h-1M3 8h15v8a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V8zM6 2v3M10 2v3M14 2v3"/>
+        </svg>
+      );
+    case 'plant':
+      return (
+        <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <path d="M7 14h10l-1.5 7h-7L7 14z"/><path d="M12 14V6M12 6c-3-2-5 1-5 4 3 0 5-2 5-4zM12 9c3-2 5 1 5 4-3 0-5-2-5-4z"/>
+        </svg>
+      );
+    default:
+      return (
+        <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+        </svg>
+      );
+  }
 };
 
 // ─── WAVE SEPARATORS ──────────────────────────────────────────
@@ -494,7 +729,7 @@ function useScrollObserver() {
           }
         });
       },
-      { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
+      { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
     );
 
     document.querySelectorAll('.reveal').forEach((el) => obsRef.current?.observe(el));
@@ -502,9 +737,14 @@ function useScrollObserver() {
   }, []);
 }
 
-// ─── MAIN COMPONENT ───────────────────────────────────────────
+// ─── MAIN APPLICATION COMPONENT ───────────────────────────────
 export default function App() {
-  const [animPaused, setAnimPaused] = useState(false);
+  const [animPaused, setAnimPaused] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    }
+    return false;
+  });
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -512,35 +752,51 @@ export default function App() {
   const [ripples, setRipples] = useState<{ id: number; x: number; y: number }[]>([]);
   const [tubeBouncing, setTubeBouncing] = useState(false);
 
-  // Chapter 4: Space Explorer Tab
-  const [activeSpaceId, setActiveSpaceId] = useState('bedrooms');
+  // Chapter 4: Space Explorer Tab — Default is 'outdoors' (pool)
+  const [activeSpaceId, setActiveSpaceId] = useState('outdoors');
 
   // Chapter 5: Mood Selector
   const [activeMoodId, setActiveMoodId] = useState('mornings');
   const [expandedAmenity, setExpandedAmenity] = useState<string | null>(null);
+
+  // Calendar & Pricing Interactive State
+  // Use October 2026 as reference base
+  const [viewYear, setViewYear] = useState(2026);
+  const [viewMonth, setViewMonth] = useState(9); // 0-indexed: 9 = October
+  const [checkIn, setCheckIn] = useState<string | null>('2026-10-28');
+  const [checkOut, setCheckOut] = useState<string | null>('2026-10-31');
+  const [guests, setGuests] = useState<number>(4);
+
+  // Direct Inquiry WhatsApp modal
+  const [inquiryModalOpen, setInquiryModalOpen] = useState(false);
+  const [guestName, setGuestName] = useState('');
+  const [guestPhone, setGuestPhone] = useState('');
 
   // Chapter 6: FAQ Accordion
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
 
   // Global Lightbox
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+  const [lightboxFilter, setLightboxFilter] = useState<string>('all');
 
   useScrollObserver();
 
-  // Listen to prefers-reduced-motion
+  // Prefers-reduced-motion listener
   useEffect(() => {
     const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
-    if (mq.matches) setAnimPaused(true);
+    const handler = (e: MediaQueryListEvent) => setAnimPaused(e.matches);
+    mq.addEventListener('change', handler);
+    return () => mq.removeEventListener('change', handler);
   }, []);
 
-  // Listen to navbar scroll
+  // Navbar background change on scroll
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20);
+    const onScroll = () => setScrolled(window.scrollY > 24);
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  // Pool Ring Click Interaction (Ripples)
+  // Pool Ring Click Interaction (Animated Ripples)
   const triggerPoolRipple = useCallback((e: React.MouseEvent) => {
     const rect = e.currentTarget.getBoundingClientRect();
     const x = e.clientX - rect.left;
@@ -556,8 +812,15 @@ export default function App() {
     }, 1000);
   }, []);
 
+  // Filtered gallery images for Lightbox
+  const filteredGallery = useMemo(() => {
+    if (lightboxFilter === 'all') return GALLERY_IMAGES;
+    return GALLERY_IMAGES.filter((img) => img.category === lightboxFilter);
+  }, [lightboxFilter]);
+
   // Lightbox handlers
-  const openLightboxAt = useCallback((index: number) => {
+  const openLightboxAt = useCallback((index: number, category: string = 'all') => {
+    setLightboxFilter(category);
     setLightboxIndex(index);
   }, []);
 
@@ -566,14 +829,14 @@ export default function App() {
   }, []);
 
   const nextLightbox = useCallback(() => {
-    setLightboxIndex((curr) => (curr !== null ? (curr + 1) % GALLERY_IMAGES.length : null));
-  }, []);
+    setLightboxIndex((curr) => (curr !== null ? (curr + 1) % filteredGallery.length : null));
+  }, [filteredGallery.length]);
 
   const prevLightbox = useCallback(() => {
     setLightboxIndex((curr) =>
-      curr !== null ? (curr - 1 + GALLERY_IMAGES.length) % GALLERY_IMAGES.length : null
+      curr !== null ? (curr - 1 + filteredGallery.length) % filteredGallery.length : null
     );
-  }, []);
+  }, [filteredGallery.length]);
 
   // Keyboard navigation for Lightbox
   useEffect(() => {
@@ -591,6 +854,156 @@ export default function App() {
   const currentSpace = EXPLORER_SPACES.find((s) => s.id === activeSpaceId) || EXPLORER_SPACES[0];
   const currentMood = MOOD_OPTIONS.find((m) => m.id === activeMoodId) || MOOD_OPTIONS[0];
 
+  // ─── CALENDAR COMPUTATIONS ────────────────────────────────────
+  const monthNames = [
+    'January', 'February', 'March', 'April', 'May', 'June',
+    'July', 'August', 'September', 'October', 'November', 'December'
+  ];
+
+  const handlePrevMonth = () => {
+    if (viewMonth === 0) {
+      setViewMonth(11);
+      setViewYear((y) => y - 1);
+    } else {
+      setViewMonth((m) => m - 1);
+    }
+  };
+
+  const handleNextMonth = () => {
+    if (viewMonth === 11) {
+      setViewMonth(0);
+      setViewYear((y) => y + 1);
+    } else {
+      setViewMonth((m) => m + 1);
+    }
+  };
+
+  // Generate days in current viewing month
+  const calendarDays = useMemo(() => {
+    const firstDay = new Date(viewYear, viewMonth, 1).getDay(); // 0 = Sunday
+    const totalDays = new Date(viewYear, viewMonth + 1, 0).getDate();
+    const days: { dateStr: string; dayNum: number; isBooked: boolean; isWeekend: boolean }[] = [];
+
+    for (let i = 1; i <= totalDays; i++) {
+      const mStr = String(viewMonth + 1).padStart(2, '0');
+      const dStr = String(i).padStart(2, '0');
+      const dateStr = `${viewYear}-${mStr}-${dStr}`;
+      const dayOfWeek = new Date(viewYear, viewMonth, i).getDay();
+      const isWeekend = dayOfWeek === 5 || dayOfWeek === 6; // Friday & Saturday
+      const isBooked = INITIAL_BOOKED_DATES.includes(dateStr);
+      days.push({ dateStr, dayNum: i, isBooked, isWeekend });
+    }
+
+    return { firstDay, days };
+  }, [viewYear, viewMonth]);
+
+  // Handle clicking on a calendar day
+  const handleDateClick = (dateStr: string, isBooked: boolean) => {
+    if (isBooked) return;
+
+    if (!checkIn || (checkIn && checkOut)) {
+      setCheckIn(dateStr);
+      setCheckOut(null);
+    } else if (checkIn && !checkOut) {
+      if (dateStr <= checkIn) {
+        setCheckIn(dateStr);
+        setCheckOut(null);
+      } else {
+        // Check if any date between checkIn and dateStr is booked
+        let hasBookedInRange = false;
+        const start = new Date(checkIn);
+        const end = new Date(dateStr);
+        for (let d = new Date(start); d < end; d.setDate(d.getDate() + 1)) {
+          const ds = d.toISOString().split('T')[0];
+          if (INITIAL_BOOKED_DATES.includes(ds)) {
+            hasBookedInRange = true;
+            break;
+          }
+        }
+        if (hasBookedInRange) {
+          setCheckIn(dateStr);
+          setCheckOut(null);
+        } else {
+          setCheckOut(dateStr);
+        }
+      }
+    }
+  };
+
+  // Pricing calculations
+  const priceDetails = useMemo(() => {
+    if (!checkIn || !checkOut) {
+      return {
+        nights: 3,
+        weekdayNights: 2,
+        weekendNights: 1,
+        accommodationCost: PRICING_CONFIG.baseNightlyRate * 2 + PRICING_CONFIG.weekendNightlyRate,
+        extraGuestCost: 0,
+        cleaningFee: PRICING_CONFIG.cleaningFee,
+        securityDeposit: PRICING_CONFIG.refundableDeposit,
+        total: PRICING_CONFIG.baseNightlyRate * 2 + PRICING_CONFIG.weekendNightlyRate + PRICING_CONFIG.cleaningFee + PRICING_CONFIG.refundableDeposit,
+        savings: 8500,
+      };
+    }
+
+    const start = new Date(checkIn);
+    const end = new Date(checkOut);
+    let weekdayNights = 0;
+    let weekendNights = 0;
+
+    for (let d = new Date(start); d < end; d.setDate(d.getDate() + 1)) {
+      const day = d.getDay();
+      if (day === 5 || day === 6) {
+        weekendNights++;
+      } else {
+        weekdayNights++;
+      }
+    }
+
+    const totalNights = weekdayNights + weekendNights;
+    const accommodationCost =
+      weekdayNights * PRICING_CONFIG.baseNightlyRate +
+      weekendNights * PRICING_CONFIG.weekendNightlyRate;
+
+    const extraGuests = Math.max(0, guests - PRICING_CONFIG.extraGuestThreshold);
+    const extraGuestCost = extraGuests * PRICING_CONFIG.extraGuestFee * totalNights;
+    const cleaningFee = PRICING_CONFIG.cleaningFee;
+    const securityDeposit = PRICING_CONFIG.refundableDeposit;
+    const total = accommodationCost + extraGuestCost + cleaningFee + securityDeposit;
+    const savings = Math.round(total * 0.14); // Average 14% platform service fee saved
+
+    return {
+      nights: totalNights,
+      weekdayNights,
+      weekendNights,
+      accommodationCost,
+      extraGuestCost,
+      cleaningFee,
+      securityDeposit,
+      total,
+      savings,
+    };
+  }, [checkIn, checkOut, guests]);
+
+  // Formatted date string for WhatsApp
+  const generateWhatsAppMessage = () => {
+    const text = `Hello Snigdha & Coral Sky Stays! 🌴
+I would like to inquire about booking Casa Maré Villa in Siolim, Goa.
+
+📅 Check-in: ${checkIn || 'To be decided'}
+📅 Check-out: ${checkOut || 'To be decided'}
+🌙 Nights: ${priceDetails.nights}
+👥 Guests: ${guests}
+💰 Estimated Total: ₹${priceDetails.total.toLocaleString('en-IN')}
+
+Name: ${guestName || 'Guest'}
+Phone: ${guestPhone || 'Provided on chat'}
+
+Please confirm availability and sharing payment details (UPI/Bank Transfer). Thank you!`;
+
+    return `https://wa.me/${PRICING_CONFIG.whatsappInquiryNumber}?text=${encodeURIComponent(text)}`;
+  };
+
   return (
     <>
       <a href="#main-content" className="skip-link">
@@ -606,11 +1019,11 @@ export default function App() {
         <div className="nav-container">
           <a href="#chapter-one" className="nav-brand" aria-label="Casa Maré, return to top">
             <div className="nav-logo-mark" aria-hidden="true">
-              <span style={{ fontSize: 18 }}>☀️</span>
+              <CoralSkyLogo size={22} />
             </div>
             <div>
               <span className="nav-title">{PROPERTY.name}</span>
-              <span className="nav-tagline">{PROPERTY.location.label}</span>
+              <span className="nav-tagline">CORAL SKY STAYS · SIOLIM, GOA</span>
             </div>
           </a>
 
@@ -625,10 +1038,13 @@ export default function App() {
               Rooms & Spaces
             </a>
             <a href="#chapter-five" className="nav-link" role="menuitem">
-              Goa Moments
+              Goa Moods
+            </a>
+            <a href="#chapter-pricing" className="nav-link" role="menuitem">
+              Dates & Pricing
             </a>
             <a href="#chapter-six" className="nav-link" role="menuitem">
-              Book Stay
+              Stay Details
             </a>
           </div>
 
@@ -669,42 +1085,49 @@ export default function App() {
           className="mobile-nav-link"
           onClick={() => setMobileMenuOpen(false)}
         >
-          🌴 Welcome
+          Welcome
         </a>
         <a
           href="#chapter-two"
           className="mobile-nav-link"
           onClick={() => setMobileMenuOpen(false)}
         >
-          🧳 The Villa & Layout
+          The Villa & Layout
         </a>
         <a
           href="#chapter-three"
           className="mobile-nav-link"
           onClick={() => setMobileMenuOpen(false)}
         >
-          🏊 Private Pool
+          Private Pool
         </a>
         <a
           href="#chapter-four"
           className="mobile-nav-link"
           onClick={() => setMobileMenuOpen(false)}
         >
-          🏡 Explore Rooms
+          Explore Rooms
         </a>
         <a
           href="#chapter-five"
           className="mobile-nav-link"
           onClick={() => setMobileMenuOpen(false)}
         >
-          ✨ Goa Days & Amenities
+          Goa Days & Amenities
+        </a>
+        <a
+          href="#chapter-pricing"
+          className="mobile-nav-link"
+          onClick={() => setMobileMenuOpen(false)}
+        >
+          Calendar & Pricing
         </a>
         <a
           href="#chapter-six"
           className="mobile-nav-link"
           onClick={() => setMobileMenuOpen(false)}
         >
-          🌅 Book Your Stay
+          Book Your Stay
         </a>
         <a
           href={AIRBNB_URL}
@@ -720,7 +1143,7 @@ export default function App() {
 
       <main id="main-content">
         {/* ==========================================================
-            CHAPTER ONE: "You've arrived in Goa."
+            CHAPTER ONE: "Goa mode: ON." (Arrival Scene)
             ========================================================== */}
         <section
           id="chapter-one"
@@ -732,28 +1155,30 @@ export default function App() {
               {/* Left Column: Headlines & Essential Facts */}
               <div className="reveal">
                 <div className="chapter-badge chapter-badge-sky">
-                  📍 {PROPERTY.location.label} · ENTIRE VILLA
+                  📍 Casa Maré · Siolim, North Goa
                 </div>
 
                 <h1 id="ch1-heading" className="ch1-headline">
-                  {PROPERTY.tagline}
+                  Goa mode: ON.
                 </h1>
 
-                <p className="ch1-subtitle">{PROPERTY.subTagline}</p>
+                <p className="ch1-subtitle">
+                  Your own villa. Your own pool. Time together.
+                </p>
 
-                {/* Key accommodation facts */}
+                {/* Confirmed accommodation facts */}
                 <div className="ch1-meta-pills" role="list" aria-label="Key property facts">
                   <div className="ch1-pill" role="listitem">
-                    <span>👥</span> Up to 9 guests
+                    <SvgIcon name="users" size={16} color="var(--coral)" />
+                    <span>Up to 9 guests</span>
                   </div>
                   <div className="ch1-pill" role="listitem">
-                    <span>🛏️</span> 3 King bedrooms
+                    <SvgIcon name="bed" size={16} color="var(--coral)" />
+                    <span>3 bedrooms</span>
                   </div>
                   <div className="ch1-pill" role="listitem">
-                    <span>🚿</span> 3.5 Bathrooms
-                  </div>
-                  <div className="ch1-pill" role="listitem">
-                    <span>🏊</span> 100% Private pool
+                    <SvgIcon name="pool" size={16} color="var(--coral)" />
+                    <span>Private pool</span>
                   </div>
                 </div>
 
@@ -769,7 +1194,7 @@ export default function App() {
                   </a>
 
                   <a href="#chapter-two" className="btn btn-outline-ink">
-                    Explore the villa ↓
+                    Explore your stay ↓
                   </a>
                 </div>
               </div>
@@ -808,7 +1233,7 @@ export default function App() {
                 <div className="postcard-photo" style={{ maxWidth: 440, width: '100%', zIndex: 2 }}>
                   <img
                     src="/images/pool/pool1.png"
-                    alt="Casa Maré villa and private pool courtyard in Siolim, Goa"
+                    alt="Casa Maré private pool courtyard in Siolim, North Goa"
                     className="postcard-photo-img"
                     width="440"
                     height="330"
@@ -834,6 +1259,77 @@ export default function App() {
                   <CoralTube />
                 </div>
 
+                {/* Second Yellow Patterned Ring */}
+                <div
+                  style={{
+                    position: 'absolute',
+                    top: '20px',
+                    left: '10px',
+                    width: '74px',
+                    height: '74px',
+                    zIndex: 3,
+                    animation: !animPaused ? 'bobSlow 4.2s ease-in-out infinite 0.6s' : 'none',
+                  }}
+                >
+                  <YellowTube />
+                </div>
+
+                {/* Striped Umbrella & Beach Towel Accents */}
+                <div
+                  style={{
+                    position: 'absolute',
+                    top: '-25px',
+                    left: '30%',
+                    width: '70px',
+                    height: '90px',
+                    zIndex: 1,
+                    pointerEvents: 'none',
+                  }}
+                >
+                  <StripedUmbrella />
+                </div>
+
+                <div
+                  style={{
+                    position: 'absolute',
+                    bottom: '-18px',
+                    left: '12%',
+                    width: '76px',
+                    height: '46px',
+                    zIndex: 3,
+                    pointerEvents: 'none',
+                  }}
+                >
+                  <StripedTowel />
+                </div>
+
+                {/* Tropical Coconut Drink & Sunglasses */}
+                <div
+                  style={{
+                    position: 'absolute',
+                    bottom: '10px',
+                    right: '18%',
+                    width: '54px',
+                    height: '54px',
+                    zIndex: 4,
+                  }}
+                >
+                  <CoconutDrink />
+                </div>
+
+                <div
+                  style={{
+                    position: 'absolute',
+                    bottom: '20px',
+                    right: '32%',
+                    width: '64px',
+                    height: '32px',
+                    zIndex: 4,
+                  }}
+                >
+                  <Sunglasses />
+                </div>
+
                 {/* Travel Bag Illustration */}
                 <div className="ch1-bag-wrap">
                   <TravelBag />
@@ -844,7 +1340,7 @@ export default function App() {
             {/* Scroll Cue */}
             <div style={{ display: 'flex', justifyContent: 'center' }}>
               <a href="#chapter-two" className="scroll-cue" aria-label="Scroll down to chapter two">
-                <span>Your holiday starts here</span>
+                <span>Scroll into holiday mode ↓</span>
                 <div className="scroll-arrow" aria-hidden="true">
                   ↓
                 </div>
@@ -854,7 +1350,7 @@ export default function App() {
         </section>
 
         {/* Transition into Chapter 2 */}
-        <WaveTransition fillColor="#FFF7E6" bg="#FFF7E6" />
+        <WaveTransition fillColor="#FFF8E9" bg="#FFF8E9" />
 
         {/* ==========================================================
             CHAPTER TWO: "Drop your bags. You're home."
@@ -869,7 +1365,7 @@ export default function App() {
               {/* Left Column: Text & Luggage Tag Facts */}
               <div className="ch2-text reveal">
                 <div className="chapter-badge chapter-badge-cream">
-                  CHAPTER 02 · ARRIVAL & COMFORT
+                  YOUR PRIVATE VILLA
                 </div>
 
                 <h2 id="ch2-heading">Drop your bags. You’re home.</h2>
@@ -892,7 +1388,7 @@ export default function App() {
                     {LUGGAGE_FACTS.map((fact) => (
                       <div key={fact.id} className="luggage-tag-item">
                         <div className="luggage-item-icon" aria-hidden="true">
-                          {getLucideOrEmoji(fact.icon)}
+                          <SvgIcon name={fact.icon} size={18} color="var(--coral)" />
                         </div>
                         <div>
                           <div className="luggage-item-val">{fact.value}</div>
@@ -941,7 +1437,7 @@ export default function App() {
         </section>
 
         {/* Transition into Chapter 3 (Water) */}
-        <WaveTransition fillColor="#087F8C" bg="#FFF7E6" />
+        <WaveTransition fillColor="#173E3B" bg="#FFF8E9" />
 
         {/* ==========================================================
             CHAPTER THREE: "Pool o'clock. All day."
@@ -956,7 +1452,7 @@ export default function App() {
           <div className="container">
             <div className="ch3-header reveal">
               <div className="chapter-badge chapter-badge-teal">
-                CHAPTER 03 · THE PRIVATE POOL
+                THE PRIVATE POOL
               </div>
 
               <h2 id="ch3-heading">Pool o’clock. All day.</h2>
@@ -1034,10 +1530,13 @@ export default function App() {
             <div className="ch3-actions reveal">
               <button
                 className="btn btn-yellow"
-                onClick={() => openLightboxAt(0)}
+                onClick={() => {
+                  setLightboxFilter('pool');
+                  openLightboxAt(0);
+                }}
                 aria-label="See pool photos in fullscreen"
               >
-                See the pool photos 📸
+                See pool photos 📸
               </button>
               <a
                 href={AIRBNB_URL}
@@ -1052,7 +1551,7 @@ export default function App() {
         </section>
 
         {/* Transition back to Warm Cream */}
-        <WaveTransition fillColor="#FFF7E6" bg="#087F8C" />
+        <WaveTransition fillColor="#FFF8E9" bg="#173E3B" />
 
         {/* ==========================================================
             CHAPTER FOUR: "Find your favourite corner."
@@ -1065,7 +1564,7 @@ export default function App() {
           <div className="container">
             <div className="ch4-header reveal">
               <div className="chapter-badge chapter-badge-cream">
-                CHAPTER 04 · SPACES & LIVING
+                SPACES & LIVING
               </div>
 
               <h2 id="ch4-heading">Find your favourite corner.</h2>
@@ -1095,10 +1594,7 @@ export default function App() {
                     onClick={() => setActiveSpaceId(space.id)}
                   >
                     <span className="explorer-tab-icon" aria-hidden="true">
-                      {space.iconType === 'bed' && <BedIcon />}
-                      {space.iconType === 'armchair' && <ArmchairIcon />}
-                      {space.iconType === 'cup' && <CoffeeCupIcon />}
-                      {space.iconType === 'plant' && <PottedPlantIcon />}
+                      <SvgIcon name={space.iconType} size={18} color="currentColor" />
                     </span>
                     <span>{space.title}</span>
                   </button>
@@ -1161,7 +1657,10 @@ export default function App() {
                 <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
                   <button
                     className="btn btn-primary"
-                    onClick={() => openLightboxAt(0)}
+                    onClick={() => {
+                      setLightboxFilter('all');
+                      openLightboxAt(0);
+                    }}
                   >
                     Browse all villa photos ({GALLERY_IMAGES.length})
                   </button>
@@ -1180,10 +1679,10 @@ export default function App() {
         </section>
 
         {/* Transition into Chapter 5 */}
-        <WaveTransition fillColor="#FFFFFF" bg="#FFF7E6" />
+        <WaveTransition fillColor="#FFFFFF" bg="#FFF8E9" />
 
         {/* ==========================================================
-            CHAPTER FIVE: "What does your Goa day look like?"
+            CHAPTER FIVE: "What’s your Goa mood?" & Amenities
             ========================================================== */}
         <section
           id="chapter-five"
@@ -1193,14 +1692,14 @@ export default function App() {
           <div className="container">
             <div className="ch5-header reveal">
               <div className="chapter-badge chapter-badge-cream">
-                CHAPTER 05 · HOLIDAY RHYTHMS
+                HOLIDAY RHYTHMS & AMENITIES
               </div>
 
-              <h2 id="ch5-heading">What does your Goa day look like?</h2>
+              <h2 id="ch5-heading">What’s your Goa mood?</h2>
 
               <p>
-                From lazy morning coffees on the balcony to midnight swims and coastal discoveries.
-                Choose your mood below for a preview of the rhythm here.
+                From lazy morning coffees on the balcony to midday pool dips and coastal discoveries.
+                Choose your rhythm below for a preview of the stay.
               </p>
             </div>
 
@@ -1216,7 +1715,7 @@ export default function App() {
                     className={`mood-btn ${isActive ? 'active' : ''}`}
                     onClick={() => setActiveMoodId(mood.id)}
                   >
-                    <span>{getLucideOrEmoji(mood.icon)}</span>
+                    <SvgIcon name={mood.icon} size={18} color="currentColor" />
                     <span>{mood.label}</span>
                   </button>
                 );
@@ -1238,7 +1737,7 @@ export default function App() {
 
               <div className="mood-card-text">
                 <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--coral)', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: 8 }}>
-                  INSPIRATION
+                  HOLIDAY INSPIRATION
                 </div>
                 <h3>{currentMood.headline}</h3>
                 <p className="mood-card-desc">{currentMood.desc}</p>
@@ -1275,7 +1774,7 @@ export default function App() {
                       aria-label={`${amenity.label}: click for details`}
                     >
                       <div className="amenity-icon-bubble" aria-hidden="true">
-                        {getLucideOrEmoji(amenity.icon)}
+                        <SvgIcon name={amenity.icon} size={22} color="var(--coral)" />
                       </div>
                       <div className="amenity-name">{amenity.label}</div>
                       <div className="amenity-full-desc" aria-hidden={!isExpanded}>
@@ -1286,14 +1785,326 @@ export default function App() {
                 })}
               </div>
             </div>
+
+            {/* Local Siolim & North Goa Highlights */}
+            <div style={{ marginTop: 'var(--space-3xl)', paddingTop: 'var(--space-2xl)', borderTop: '1px solid rgba(23,62,59,0.08)' }} className="reveal">
+              <div className="amenities-title">
+                <h3>North Goa on your doorstep.</h3>
+                <p style={{ color: 'var(--ink-muted)', fontSize: 14 }}>
+                  Peaceful heritage village charm in Siolim with coastal hotspots within easy reach.
+                </p>
+              </div>
+
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: 'var(--space-md)' }}>
+                {AREA_HIGHLIGHTS.map((item, idx) => (
+                  <div
+                    key={idx}
+                    style={{
+                      background: 'var(--cream)',
+                      padding: '20px',
+                      borderRadius: 'var(--radius-lg)',
+                      border: '1px solid rgba(23,62,59,0.08)',
+                    }}
+                  >
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 8 }}>
+                      <div style={{ width: 34, height: 34, borderRadius: '50%', background: 'var(--white)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                        <SvgIcon name={item.icon} size={16} color="var(--coral)" />
+                      </div>
+                      <div style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 16, color: 'var(--ink)' }}>
+                        {item.category}
+                      </div>
+                    </div>
+                    <p style={{ fontSize: 13, color: 'var(--ink-light)', lineHeight: 1.6 }}>
+                      {item.description}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </section>
 
-        {/* Transition into Chapter 6 (Sunset) */}
-        <WaveTransition fillColor="#FFF7E6" bg="#FFFFFF" />
+        {/* Transition into Calendar & Pricing Section */}
+        <WaveTransition fillColor="#FFF8E9" bg="#FFFFFF" />
 
         {/* ==========================================================
-            CHAPTER SIX: "Stay a little longer."
+            CALENDAR & PRICING SECTION: Dates, Pricing & Direct Reserve
+            ========================================================== */}
+        <section
+          id="chapter-pricing"
+          className="chapter chapter-pricing"
+          aria-labelledby="pricing-heading"
+        >
+          <div className="container">
+            <div className="pricing-header reveal">
+              <div className="chapter-badge chapter-badge-sky">
+                DATES & TRANSPARENT PRICING
+              </div>
+              <h2 id="pricing-heading">Plan your Goa holiday dates.</h2>
+              <p>
+                Select your preferred dates below to view real-time estimates, weekend rates, and
+                instant booking options. No hidden surcharges.
+              </p>
+            </div>
+
+            <div className="pricing-layout-grid reveal">
+              {/* Left Column: Interactive Monthly Calendar */}
+              <div className="cal-card">
+                <div className="cal-nav-bar">
+                  <div className="cal-month-title">
+                    {monthNames[viewMonth]} {viewYear}
+                  </div>
+                  <div style={{ display: 'flex', gap: 8 }}>
+                    <button
+                      className="cal-nav-btn"
+                      onClick={handlePrevMonth}
+                      aria-label="Previous month"
+                    >
+                      ‹
+                    </button>
+                    <button
+                      className="cal-nav-btn"
+                      onClick={handleNextMonth}
+                      aria-label="Next month"
+                    >
+                      ›
+                    </button>
+                  </div>
+                </div>
+
+                <div className="cal-weekdays">
+                  <div>Su</div>
+                  <div>Mo</div>
+                  <div>Tu</div>
+                  <div>We</div>
+                  <div>Th</div>
+                  <div>Fr</div>
+                  <div>Sa</div>
+                </div>
+
+                <div className="cal-days-grid">
+                  {/* Empty cells before month start */}
+                  {Array.from({ length: calendarDays.firstDay }).map((_, idx) => (
+                    <div key={`empty-${idx}`} className="cal-day-cell empty" />
+                  ))}
+
+                  {/* Month days */}
+                  {calendarDays.days.map((d) => {
+                    const isStart = checkIn === d.dateStr;
+                    const isEnd = checkOut === d.dateStr;
+                    const inRange = Boolean(checkIn && checkOut && d.dateStr > checkIn && d.dateStr < checkOut);
+                    const isBooked = d.isBooked;
+
+                    let classes = 'cal-day-cell';
+                    if (isBooked) classes += ' booked';
+                    if (isStart) classes += ' selected-start';
+                    if (isEnd) classes += ' selected-end';
+                    if (inRange) classes += ' in-range';
+
+                    return (
+                      <button
+                        key={d.dateStr}
+                        className={classes}
+                        onClick={() => handleDateClick(d.dateStr, isBooked)}
+                        disabled={isBooked}
+                        aria-label={`${d.dayNum} ${monthNames[viewMonth]} ${viewYear}${isBooked ? ' (Reserved)' : ''}`}
+                      >
+                        <span>{d.dayNum}</span>
+                        {!isBooked && (
+                          <span className="cal-day-price">
+                            {d.isWeekend ? '₹22k' : '₹18.5k'}
+                          </span>
+                        )}
+                      </button>
+                    );
+                  })}
+                </div>
+
+                <div className="cal-legend">
+                  <div className="cal-legend-item">
+                    <span className="cal-legend-dot" style={{ background: 'var(--coral)' }} />
+                    <span>Selected Dates</span>
+                  </div>
+                  <div className="cal-legend-item">
+                    <span className="cal-legend-dot" style={{ background: 'rgba(23,62,59,0.1)' }} />
+                    <span>Reserved</span>
+                  </div>
+                  <div className="cal-legend-item">
+                    <span className="cal-legend-dot" style={{ background: 'var(--cream)', border: '1px solid var(--teal)' }} />
+                    <span>Available</span>
+                  </div>
+                </div>
+
+                {/* Preset quick buttons */}
+                <div style={{ marginTop: 'var(--space-md)' }}>
+                  <div style={{ fontSize: 11, fontWeight: 700, color: 'var(--ink-muted)', textTransform: 'uppercase', marginBottom: 6 }}>
+                    Quick Date Presets:
+                  </div>
+                  <div className="cal-presets">
+                    <button
+                      className="cal-preset-btn"
+                      onClick={() => {
+                        setCheckIn('2026-10-28');
+                        setCheckOut('2026-10-31');
+                      }}
+                    >
+                      Late Oct Break (3 nights)
+                    </button>
+                    <button
+                      className="cal-preset-btn"
+                      onClick={() => {
+                        setCheckIn('2026-11-01');
+                        setCheckOut('2026-11-04');
+                      }}
+                    >
+                      Nov Escape (3 nights)
+                    </button>
+                    <button
+                      className="cal-preset-btn"
+                      onClick={() => {
+                        setCheckIn('2026-11-08');
+                        setCheckOut('2026-11-13');
+                      }}
+                    >
+                      Mid-Nov Holiday (5 nights)
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              {/* Right Column: Pricing Breakdown & Booking Options */}
+              <div className="price-card">
+                <div className="price-card-header">
+                  <div className="price-card-rate">
+                    <span className="price-big-number">
+                      ₹{PRICING_CONFIG.baseNightlyRate.toLocaleString('en-IN')}
+                    </span>
+                    <span className="price-period">/ night (entire 3BHK villa)</span>
+                  </div>
+                  <div className="direct-savings-badge">
+                    <SvgIcon name="check" size={12} color="#2D6346" />
+                    <span>Save ~14% booking via Coral Sky Stays</span>
+                  </div>
+                </div>
+
+                <div className="pricing-controls">
+                  {/* Selected Dates Display */}
+                  <div className="dates-pill-box">
+                    <div className="dates-pill-item">
+                      <span className="dates-pill-lbl">Check-in</span>
+                      <span className="dates-pill-val">{checkIn || 'Pick date'}</span>
+                    </div>
+                    <div className="dates-arrow">→</div>
+                    <div className="dates-pill-item">
+                      <span className="dates-pill-lbl">Checkout</span>
+                      <span className="dates-pill-val">{checkOut || 'Pick date'}</span>
+                    </div>
+                  </div>
+
+                  {/* Guest count selector */}
+                  <div className="pricing-control-row">
+                    <div>
+                      <div className="pricing-control-label">Guests</div>
+                      <div className="pricing-control-sub">Up to 9 guests max</div>
+                    </div>
+                    <div className="guest-counter">
+                      <button
+                        className="guest-counter-btn"
+                        onClick={() => setGuests((g) => Math.max(1, g - 1))}
+                        disabled={guests <= 1}
+                        aria-label="Decrease guests"
+                      >
+                        –
+                      </button>
+                      <span className="guest-count-val">{guests}</span>
+                      <button
+                        className="guest-counter-btn"
+                        onClick={() => setGuests((g) => Math.min(PROPERTY.capacity.guests, g + 1))}
+                        disabled={guests >= PROPERTY.capacity.guests}
+                        aria-label="Increase guests"
+                      >
+                        +
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Price Breakdown Line Items */}
+                <div className="price-breakdown-list">
+                  <div className="price-line-item">
+                    <span>
+                      Stay ({priceDetails.nights} {priceDetails.nights === 1 ? 'night' : 'nights'} · {priceDetails.weekdayNights} weekday, {priceDetails.weekendNights} weekend)
+                    </span>
+                    <span>₹{priceDetails.accommodationCost.toLocaleString('en-IN')}</span>
+                  </div>
+
+                  {priceDetails.extraGuestCost > 0 && (
+                    <div className="price-line-item">
+                      <span>Extra guests ({guests - PRICING_CONFIG.extraGuestThreshold} × ₹{PRICING_CONFIG.extraGuestFee})</span>
+                      <span>₹{priceDetails.extraGuestCost.toLocaleString('en-IN')}</span>
+                    </div>
+                  )}
+
+                  <div className="price-line-item">
+                    <span>One-time cleaning & sanitization fee</span>
+                    <span>₹{priceDetails.cleaningFee.toLocaleString('en-IN')}</span>
+                  </div>
+
+                  <div className="price-line-item">
+                    <span>Refundable security deposit</span>
+                    <span>₹{priceDetails.securityDeposit.toLocaleString('en-IN')}</span>
+                  </div>
+
+                  <div className="price-line-item highlight">
+                    <span>Estimated direct booking savings</span>
+                    <span>– ₹{priceDetails.savings.toLocaleString('en-IN')}</span>
+                  </div>
+                </div>
+
+                <div className="price-total-row">
+                  <span className="price-total-label">Estimated Total</span>
+                  <span className="price-total-value">
+                    ₹{priceDetails.total.toLocaleString('en-IN')}
+                  </span>
+                </div>
+
+                <div className="price-cta-stack">
+                  <a
+                    href={AIRBNB_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn btn-coral"
+                    style={{ width: '100%' }}
+                  >
+                    Check dates on Airbnb ↗
+                  </a>
+
+                  <button
+                    className="btn btn-yellow"
+                    style={{ width: '100%' }}
+                    onClick={() => setInquiryModalOpen(true)}
+                  >
+                    Inquire direct with Coral Sky Stays 💬
+                  </button>
+                </div>
+
+                <div className="payment-methods-strip">
+                  <span>Accepted modes:</span>
+                  <span className="payment-tag">UPI / GPay</span>
+                  <span className="payment-tag">Net Banking</span>
+                  <span className="payment-tag">Cards</span>
+                  <span className="payment-tag">Airbnb</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Transition into Chapter 6 */}
+        <WaveTransition fillColor="#FFF8E9" bg="#FFF8E9" />
+
+        {/* ==========================================================
+            CHAPTER SIX: "Good days look like this." (Sunset & Closing)
             ========================================================== */}
         <section
           id="chapter-six"
@@ -1322,7 +2133,7 @@ export default function App() {
               <SunIllustration sunset className="ch6-sun-graphic" />
 
               <div className="chapter-badge chapter-badge-sunset">
-                CHAPTER 06 · YOUR GOA HOLIDAY
+                YOUR GOA HOLIDAY
               </div>
 
               <h2 id="ch6-heading" className="ch6-heading">
@@ -1356,7 +2167,7 @@ export default function App() {
                 </div>
               </div>
 
-              <div style={{ marginBottom: varSpaceSm }}>
+              <div style={{ marginBottom: '8px' }}>
                 <a
                   href={AIRBNB_URL}
                   target="_blank"
@@ -1426,12 +2237,17 @@ export default function App() {
         <div className="container">
           <div className="footer-grid">
             <div>
-              <div className="footer-brand-title">{PROPERTY.name}</div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 8 }}>
+                <div style={{ width: 34, height: 34, borderRadius: '50%', background: 'var(--coral)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <CoralSkyLogo size={22} />
+                </div>
+                <div className="footer-brand-title">{PROPERTY.name}</div>
+              </div>
               <p className="footer-brand-desc">
                 An elegantly designed 3-bedroom luxury villa with private pool in Siolim, North Goa.
-                Brought to you by {PROPERTY.brand}.
+                Curated and hosted by {PROPERTY.brand}.
               </p>
-              <div style={{ marginTop: 12, fontSize: 13, color: 'var(--yellow)' }}>
+              <div style={{ marginTop: 12, fontSize: 13, color: 'var(--coral)' }}>
                 📍 Siolim · North Goa · India
               </div>
             </div>
@@ -1452,7 +2268,10 @@ export default function App() {
                   Rooms & Spaces
                 </a>
                 <a href="#chapter-five" className="footer-link">
-                  Holiday Rhythms
+                  Holiday Moods
+                </a>
+                <a href="#chapter-pricing" className="footer-link">
+                  Dates & Pricing
                 </a>
                 <a href="#chapter-six" className="footer-link">
                   Book on Airbnb
@@ -1467,13 +2286,13 @@ export default function App() {
                 <br />
                 Brand: {PROPERTY.brand}
                 <br />
-                All rates & live calendars managed on Airbnb.
+                Live calendar and verified guest reviews on Airbnb.
               </p>
               <a
                 href={AIRBNB_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn btn-yellow btn-sm"
+                className="btn btn-coral btn-sm"
               >
                 View Airbnb Listing ↗
               </a>
@@ -1482,7 +2301,7 @@ export default function App() {
 
           <div className="footer-bottom-bar">
             <div>
-              © {new Date().getFullYear()} Casa Maré · {PROPERTY.brand}. All rights reserved.
+              © {CURRENT_YEAR} Casa Maré · {PROPERTY.brand}. All rights reserved.
             </div>
             <div>
               <a
@@ -1524,13 +2343,140 @@ export default function App() {
         {animPaused ? '▶ Resume Motion' : '⏸ Pause Motion'}
       </button>
 
-      {/* ─── LIGHTBOX MODAL ────────────────────────────────────────── */}
-      {lightboxIndex !== null && (
+      {/* ─── DIRECT INQUIRY MODAL (WHATSAPP / UPI) ──────────────────── */}
+      {inquiryModalOpen && (
         <div
           className="lb-overlay"
           role="dialog"
           aria-modal="true"
-          aria-label={`Photo viewer: ${GALLERY_IMAGES[lightboxIndex]?.caption}`}
+          aria-label="Direct booking inquiry"
+          onClick={(e) => {
+            if (e.target === e.currentTarget) setInquiryModalOpen(false);
+          }}
+        >
+          <div
+            style={{
+              background: 'var(--white)',
+              borderRadius: 'var(--radius-2xl)',
+              padding: '32px',
+              maxWidth: '480px',
+              width: '92%',
+              position: 'relative',
+              boxShadow: 'var(--shadow-xl)',
+            }}
+          >
+            <button
+              onClick={() => setInquiryModalOpen(false)}
+              style={{
+                position: 'absolute',
+                top: 16,
+                right: 16,
+                width: 36,
+                height: 36,
+                borderRadius: '50%',
+                background: 'var(--cream)',
+                fontSize: 18,
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+              aria-label="Close dialog"
+            >
+              ✕
+            </button>
+
+            <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 16 }}>
+              <div style={{ width: 36, height: 36, borderRadius: '50%', background: 'var(--coral)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <CoralSkyLogo size={22} />
+              </div>
+              <div>
+                <div style={{ fontFamily: 'var(--font-display)', fontSize: 20, fontWeight: 700, color: 'var(--ink)' }}>
+                  Direct Booking Inquiry
+                </div>
+                <div style={{ fontSize: 12, color: 'var(--ink-muted)' }}>
+                  Coral Sky Stays · Casa Maré
+                </div>
+              </div>
+            </div>
+
+            <div style={{ background: 'var(--cream)', padding: '14px', borderRadius: 'var(--radius-md)', marginBottom: '16px', fontSize: 13, color: 'var(--ink-light)', lineHeight: 1.5 }}>
+              <div>📅 <strong>Dates:</strong> {checkIn || 'Not picked'} to {checkOut || 'Not picked'} ({priceDetails.nights} nights)</div>
+              <div>👥 <strong>Guests:</strong> {guests}</div>
+              <div>💰 <strong>Estimated Total:</strong> ₹{priceDetails.total.toLocaleString('en-IN')}</div>
+              <div style={{ color: 'var(--green)', fontWeight: 600, marginTop: 4 }}>
+                ✓ Save ~14% third-party service fees
+              </div>
+            </div>
+
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginBottom: 20 }}>
+              <div>
+                <label style={{ display: 'block', fontSize: 12, fontWeight: 700, color: 'var(--ink)', marginBottom: 4 }}>
+                  Your Name
+                </label>
+                <input
+                  type="text"
+                  placeholder="e.g. Rahul Sharma"
+                  value={guestName}
+                  onChange={(e) => setGuestName(e.target.value)}
+                  style={{
+                    width: '100%',
+                    padding: '10px 14px',
+                    borderRadius: 'var(--radius-sm)',
+                    border: '1px solid rgba(23,62,59,0.2)',
+                    fontSize: 14,
+                    background: 'var(--white)',
+                    fontFamily: 'inherit',
+                  }}
+                />
+              </div>
+
+              <div>
+                <label style={{ display: 'block', fontSize: 12, fontWeight: 700, color: 'var(--ink)', marginBottom: 4 }}>
+                  Contact Phone / WhatsApp
+                </label>
+                <input
+                  type="tel"
+                  placeholder="e.g. +91 98765 43210"
+                  value={guestPhone}
+                  onChange={(e) => setGuestPhone(e.target.value)}
+                  style={{
+                    width: '100%',
+                    padding: '10px 14px',
+                    borderRadius: 'var(--radius-sm)',
+                    border: '1px solid rgba(23,62,59,0.2)',
+                    fontSize: 14,
+                    background: 'var(--white)',
+                    fontFamily: 'inherit',
+                  }}
+                />
+              </div>
+            </div>
+
+            <a
+              href={generateWhatsAppMessage()}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn-coral"
+              style={{ width: '100%', marginBottom: 10 }}
+            >
+              Send WhatsApp Inquiry to Host 💬
+            </a>
+
+            <div style={{ textAlign: 'center', fontSize: 11, color: 'var(--ink-muted)' }}>
+              Snigdha will confirm dates, payment instructions (UPI / Bank transfer) and check-in details.
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ─── LIGHTBOX MODAL ────────────────────────────────────────── */}
+      {lightboxIndex !== null && filteredGallery[lightboxIndex] && (
+        <div
+          className="lb-overlay"
+          role="dialog"
+          aria-modal="true"
+          aria-label={`Photo viewer: ${filteredGallery[lightboxIndex]?.caption}`}
           onClick={(e) => {
             if (e.target === e.currentTarget) closeLightbox();
           }}
@@ -1544,9 +2490,36 @@ export default function App() {
               ✕
             </button>
 
+            {/* Category Filter Pills */}
+            <div style={{ display: 'flex', justifyContent: 'center', gap: 8, marginBottom: 14, flexWrap: 'wrap' }}>
+              {['all', 'pool', 'living', 'rooms', 'kitchen'].map((cat) => (
+                <button
+                  key={cat}
+                  onClick={() => {
+                    setLightboxFilter(cat);
+                    setLightboxIndex(0);
+                  }}
+                  style={{
+                    padding: '6px 14px',
+                    borderRadius: 'var(--radius-pill)',
+                    fontSize: 12,
+                    fontWeight: 700,
+                    background: lightboxFilter === cat ? 'var(--coral)' : 'rgba(255,255,255,0.15)',
+                    color: 'var(--white)',
+                    border: '1px solid rgba(255,255,255,0.2)',
+                    cursor: 'pointer',
+                    textTransform: 'capitalize',
+                    transition: 'all 0.15s ease',
+                  }}
+                >
+                  {cat === 'rooms' ? 'Bedrooms' : cat === 'all' ? `All (${GALLERY_IMAGES.length})` : cat}
+                </button>
+              ))}
+            </div>
+
             <img
-              src={GALLERY_IMAGES[lightboxIndex]?.src}
-              alt={GALLERY_IMAGES[lightboxIndex]?.alt}
+              src={filteredGallery[lightboxIndex]?.src}
+              alt={filteredGallery[lightboxIndex]?.alt}
               className="lb-img"
             />
 
@@ -1559,7 +2532,7 @@ export default function App() {
                 ←
               </button>
               <div className="lb-caption">
-                {GALLERY_IMAGES[lightboxIndex]?.caption}
+                {filteredGallery[lightboxIndex]?.caption}
               </div>
               <button
                 className="lb-btn"
@@ -1571,7 +2544,7 @@ export default function App() {
             </div>
 
             <div className="lb-count">
-              {lightboxIndex + 1} of {GALLERY_IMAGES.length}
+              {lightboxIndex + 1} of {filteredGallery.length}
             </div>
           </div>
         </div>
@@ -1579,5 +2552,3 @@ export default function App() {
     </>
   );
 }
-
-const varSpaceSm = '8px';

@@ -8,7 +8,7 @@
 export const PROPERTY = {
   name: 'Casa Maré',
   tagline: 'Goa mode: ON.',
-  subTagline: 'Slow down. Splash around. Make yourself at home.',
+  subTagline: 'Your own villa. Your own pool. Time together.',
   conceptLine: 'Your Goa holiday starts with the first scroll.',
   brand: 'Coral Sky Stays',
   host: 'Snigdha',
@@ -27,7 +27,8 @@ export const PROPERTY = {
   },
   checkin: 'After 2:00 PM',
   checkout: 'Before 11:00 AM',
-  overview: `Nestled in the heart of Siolim, North Goa, Casa Maré is an elegantly designed 3-bedroom luxury villa featuring a private swimming pool, brought to you by Coral Sky Stays. The entire home is exclusively yours — three king bedrooms with en-suite bathrooms, sunlit living areas, a fully equipped kitchen, and a private pool garden.`,
+  quietHours: '10:00 PM to 8:00 AM',
+  overview: `Nestled in the heart of Siolim, North Goa, Casa Maré is an elegantly designed luxury 3-bedroom villa featuring a private swimming pool, brought to you by Coral Sky Stays. A peaceful retreat for those seeking comfort, privacy, and a taste of Goa’s laid-back charm — less than 10 minutes drive to the popular beaches, restaurants & bars in North Goa.`,
 };
 
 export const LUGGAGE_FACTS = [
@@ -40,6 +41,20 @@ export const LUGGAGE_FACTS = [
 ];
 
 export const EXPLORER_SPACES = [
+  {
+    id: 'outdoors',
+    title: 'Outdoors',
+    iconType: 'plant',
+    headline: 'Your own private pool and tropical garden courtyard.',
+    desc: 'Step right outside into a sun-dappled courtyard with your private swimming pool, tropical foliage, and shaded corners. Perfect for early morning dips or relaxed afternoon drinks.',
+    badge: '100% Private Pool · Sunlit Garden · Balconies',
+    image: '/images/pool/pool1.png',
+    alt: 'Casa Maré private pool garden courtyard',
+    subImages: [
+      { src: '/images/pool/pool2.png', caption: 'Sunlit Pool Water' },
+      { src: '/images/stairs/stairs1.jpg', caption: 'Courtyard Architecture' },
+    ],
+  },
   {
     id: 'bedrooms',
     title: 'Bedrooms',
@@ -80,20 +95,6 @@ export const EXPLORER_SPACES = [
     subImages: [
       { src: '/images/kitchen/kitchen2.png', caption: 'Prep Counters' },
       { src: '/images/kitchen/kitchen3.png', caption: 'Warm Lighting' },
-    ],
-  },
-  {
-    id: 'outdoors',
-    title: 'Outdoors',
-    iconType: 'plant',
-    headline: 'Your own private pool and tropical garden courtyard.',
-    desc: 'Step right outside into a sun-dappled courtyard with your private swimming pool, tropical foliage, and shaded corners. Perfect for early morning dips or relaxed afternoon drinks.',
-    badge: '100% Private Pool · Sunlit Garden · Balconies',
-    image: '/images/pool/pool1.png',
-    alt: 'Casa Maré private pool garden courtyard',
-    subImages: [
-      { src: '/images/pool/pool2.png', caption: 'Sunlit Pool Water' },
-      { src: '/images/stairs/stairs1.jpg', caption: 'Courtyard Architecture' },
     ],
   },
 ];
@@ -201,14 +202,63 @@ export const FAQS = [
     a: 'Check-in is after 2:00 PM and checkout is before 11:00 AM. Exact arrangements can be coordinated with your host, Snigdha.',
   },
   {
+    q: 'Are there quiet hours?',
+    a: 'Yes, quiet hours are from 10:00 PM to 8:00 AM to preserve the peaceful ambiance of our residential Siolim neighbourhood.',
+  },
+  {
     q: 'How do I check pricing, availability, and house rules?',
     a: 'Live calendar availability, seasonal rates, cancellation policies, and house rules are maintained on the official Airbnb listing. Click "Check dates on Airbnb" to view accurate live rates.',
   },
 ];
 
 export const AREA_HIGHLIGHTS = [
-  { category: 'Beaches', description: 'North Goa’s famous beaches (Vagator, Anjuna, Morjim, and Ashwem) are easily accessible from Siolim.', icon: 'beach' },
-  { category: 'Cafés & Bistros', description: 'Siolim and neighboring Assagao and Anjuna offer celebrated breakfast spots, sourdough bakeries, and coastal seafood shacks.', icon: 'cafe' },
-  { category: 'Local Markets', description: 'Explore local fruit, spice, and flea markets for handmade crafts and Goan treats.', icon: 'market' },
-  { category: 'Heritage & Backwaters', description: 'Historic churches, Indo-Portuguese architecture, and peaceful Chapora river views define the local landscape.', icon: 'heritage' },
+  { category: 'Beaches', description: 'Morjim Beach (15 mins), Anjuna & Vagator Beaches (20 mins), Ashwem Beach (25 mins).', icon: 'beach' },
+  { category: 'Cafés & Bistros', description: 'Rabbit Hole & Hoops Coffee (3 mins), Kefi Cafe & Bistro (6 mins), Mimousu (9 mins), Gunpowder & Bawri (16 mins).', icon: 'cafe' },
+  { category: 'Bars & Sunset Spots', description: 'Thalassa & Soro Pub (9 mins), Kiki By The Sea (12 mins), Purple Martini & Antares (19–20 mins).', icon: 'market' },
+  { category: 'Airports & Transit', description: 'MOPA Airport (30 mins), Thivim Railway (25 mins), Dabolim Airport (60 mins), Chapora Fort (21 mins).', icon: 'heritage' },
 ];
+
+/**
+ * Pricing & Calendar Configuration
+ * Edit these values anytime to update rates, cleaning fees, and blocked dates.
+ */
+export const PRICING_CONFIG = {
+  currency: '₹',
+  baseNightlyRate: 18500, // Standard weekday rate per night for entire 3-BHK luxury villa
+  weekendNightlyRate: 22000, // Friday & Saturday rate per night
+  extraGuestThreshold: 6, // Base capacity included in standard rate
+  extraGuestFee: 1500, // Fee per guest per night beyond 6 (up to max 9)
+  cleaningFee: 2500, // One-time cleaning & sanitization fee
+  serviceFeePercent: 0, // Direct booking savings (0% vs ~14% on third-party portals)
+  refundableDeposit: 10000, // Fully refundable security deposit
+  minimumStayNights: 2, // Minimum nights required
+  checkInTime: '2:00 PM',
+  checkOutTime: '11:00 AM',
+  whatsappInquiryNumber: '919876543210', // Contact phone for direct inquiry
+};
+
+/**
+ * Calendar Reserved / Blocked Dates (format: YYYY-MM-DD)
+ * Owner can update this list to reflect bookings.
+ */
+export const INITIAL_BOOKED_DATES = [
+  '2026-10-24',
+  '2026-10-25',
+  '2026-10-26',
+  '2026-11-05',
+  '2026-11-06',
+  '2026-11-07',
+  '2026-11-14',
+  '2026-11-15',
+  '2026-12-24',
+  '2026-12-25',
+  '2026-12-26',
+  '2026-12-27',
+  '2026-12-28',
+  '2026-12-29',
+  '2026-12-30',
+  '2026-12-31',
+  '2027-01-01',
+  '2027-01-02',
+];
+

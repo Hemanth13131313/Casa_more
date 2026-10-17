@@ -1,48 +1,67 @@
-# Casa Maré — Handover Checklist & Creative Deliverables
+# Casa Maré by Coral Sky Stays — Handover Checklist & Deliverables
 
 ## 🌴 Creative Direction: “Your Goa holiday starts with the first scroll.”
 
-The Casa Maré website has been rebuilt from the ground up as a continuous, illustrated holiday journey. Visitors experience the warmth, sunshine, pool relaxation, and character of a Goan getaway while gradually discovering genuine villa spaces and verified accommodation facts.
+The Casa Maré website has been redesigned as a vibrant, illustrated Goa holiday journey aligned with the **Coral Sky Stays** brand aesthetic. Guests immediately experience warm sunshine, poolside fun, tropical lushness, and authentic Goa vibes while discovering genuine villa spaces, confirmed specifications, real-time pricing, and direct booking options.
 
 ---
 
-## 🎨 The Six-Chapter Scroll Journey
+## 🎨 Brand & Color System (Coral Sky Stays)
 
-| Chapter | Title & Feeling | Key Visuals & Interactions | Verified Info Delivered |
+Matches the Coral Sky Stays brand identity (warm coral field with cream arch, waves, and palm sprig motif):
+
+| Color Name | Hex Code | Purpose |
+|---|---|---|
+| **Warm Cream** | `#FFF8E9` | Base background, postcard frames, luggage tag cards |
+| **Deep Teal (Ink)** | `#173E3B` | Primary body typography, pool night background, high-contrast text |
+| **Coral** | `#F16D4D` | Coral Sky Stays brand identity, primary CTA buttons, swim ring, badges |
+| **Sunshine Yellow** | `#F7D664` | Friendly animated sun, secondary polka-dot ring, luggage bag |
+| **Pool Turquoise** | `#8AD8CE` | Water reflection, wave accents, pool details |
+| **Palm Green** | `#397B58` | Tropical swaying palm fronds & foliage |
+| **Sunset Peach** | `#F7B795` | Evening sunset gradients and warm accents |
+
+---
+
+## 📖 Chapter-by-Chapter Holiday Experience
+
+| Chapter | Title & Mood | Visuals & Illustrations | Verified Features & Actions |
 |---|---|---|---|
-| **Chapter 01** | **“You’ve arrived in Goa.”**<br>*Excitement, sunshine, arrival* | • Headline: *“Goa mode: ON.”*<br>• Subtitle: *“Slow down. Splash around. Make yourself at home.”*<br>• Sky gradient, smiling vector sun, swaying palm trees, travel bag, coral swim tube.<br>• Postcard-framed real pool photo with Goa 2026 postmark.<br>• Scroll cue: *“Your holiday starts here ↓”* | • Location: Siolim, North Goa<br>• Max 9 guests<br>• 3 King bedrooms<br>• 3.5 Bathrooms<br>• 100% Private pool<br>• Direct Airbnb CTA |
-| **Chapter 02** | **“Drop your bags. You’re home.”**<br>*Arrival, comfort, discovering your space* | • Soft wave transition into warm cream and subtle Goan tile motif.<br>• Stamped **Luggage-Tag Motif Card** framing the key stay facts.<br>• Stacked tilt-hover real postcards of the open lounge and master king bedroom. | • Entire villa privacy<br>• 3 King bedrooms with en-suite baths<br>• Powder room<br>• Free on-site parking & EV charger<br>• Air conditioned throughout |
-| **Chapter 03** | **“Pool o’clock. All day.”**<br>*Fun, freedom, poolside relaxation* | • Expansive lagoon teal water background with wave transitions.<br>• Centered genuine pool courtyard photo in rounded pool stage.<br>• **Interactive swim ring**: tap/click to trigger expanding water ripples and a joyful bounce.<br>• Striped pool umbrella, beach towel, and secondary yellow dotted float. | • 100% private swimming pool<br>• Enclosed courtyard garden<br>• Action: *“See the pool photos”* (opens fullscreen lightbox) |
-| **Chapter 04** | **“Find your favourite corner.”**<br>*Curiosity, imagining staying here* | • **Interactive Space Explorer Tabs** with custom vector icons: Bedrooms (bed), Living & dining (armchair), Kitchen (coffee cup), Outdoors (potted plant).<br>• Large genuine photos, verified room specs, and clickable sub-thumbnails.<br>• Works with mouse click, touch, and keyboard. | • King bed setups<br>• En-suite bathrooms<br>• Living lounge + Smart TV<br>• Fully equipped kitchen (cooktop, fridge, cookware)<br>• Private garden balconies |
-| **Chapter 05** | **“What does your Goa day look like?”**<br>*Possibility, holiday anticipation* | • **Interactive Holiday Mood Selector**: *Slow mornings*, *Pool afternoons*, *Out exploring*.<br>• Dynamic card updates with genuine photography and verified inspiration notes.<br>• Clean **10-item Amenities Grid** with tap-to-expand details. | • Wi-Fi, AC, EV charger, free parking, workspace, full kitchen, laundry, TV, balconies<br>• Siolim village location context |
-| **Chapter 06** | **“Stay a little longer.”**<br>*Warm sunset, desire to book* | • Sunset sky (peach to warm coral), glowing golden sun, floating teal ring.<br>• Headline: *“Good days look like this.”*<br>• Check-in & checkout card with host name (Snigdha) and brand (Coral Sky Stays).<br>• Primary button: *“Check dates on Airbnb”* with verified supporting copy.<br>• Accessible FAQ accordion with full keyboard support. | • Check-in: After 2:00 PM<br>• Checkout: Before 11:00 AM<br>• Verified listing policies<br>• Direct booking link |
+| **Chapter 01** | **“You’ve arrived.”**<br>*Excitement, sunshine, arrival* | • Headline: *“Goa mode: ON.”*<br>• Subtitle: *“Your own villa. Your own pool. Time together.”*<br>• Location: *Casa Maré · Siolim, North Goa*<br>• Confirmed facts: *Up to 9 guests · 3 bedrooms · Private pool*<br>• Postcard-framed pool photo with Goa 2026 stamp<br>• Cheerful sun with glow effect, swaying palms, oversized coral tube, yellow dotted float, striped umbrella, striped towel, sunglasses, coconut drink.<br>• Scroll cue: *“Scroll into holiday mode ↓”* | • Primary CTA: *“Check dates on Airbnb ↗”*<br>• Secondary CTA: *“Explore your stay ↓”*<br>• Official Airbnb link |
+| **Chapter 02** | **“Drop your bags. You’re home.”**<br>*Comfort, space discovery* | • Soft wave transition into warm cream surfaces with subtle Goan tile geometry.<br>• Stamped **Villa Pass Luggage Tag** with custom SVG icons (no generic emojis).<br>• Stacked tilt-hover genuine photos of the open lounge and master king bedroom. | • Entire villa privacy<br>• 3 King bedrooms with en-suite baths<br>• 3.5 Bathrooms (powder room)<br>• Free on-site parking & EV charger<br>• Air conditioning throughout |
+| **Chapter 03** | **“Pool o’clock. All day.”**<br>*Fun, freedom, relaxation* | • Deep teal pool water background with wave transitions.<br>• Genuine pool courtyard photo centered in rounded pool deck.<br>• **Interactive swim ring**: tap/click creates expanding water ripples and a playful bounce.<br>• Striped umbrella & beach towel accessories. | • 100% private pool<br>• Enclosed courtyard garden<br>• Action: *“See pool photos 📸”* (opens filtered Lightbox)<br>• Direct Airbnb booking link |
+| **Chapter 04** | **“Find your favourite corner.”**<br>*Curiosity & space exploration* | • **Interactive Space Explorer**: **Pool (default)**, Bedrooms, Living & dining, Kitchen.<br>• Desktop: choices beside photograph. Mobile: choices above.<br>• Large authentic photos, verified specification badge, and clickable sub-thumbnails.<br>• Works by click, tap, and keyboard. | • King bed setups<br>• En-suite bathrooms<br>• Open-plan lounge + Smart TV<br>• Fully equipped kitchen (cooktop, fridge, cookware)<br>• Private garden balconies |
+| **Chapter 05** | **“What’s your Goa mood?” & Amenities**<br>*Holiday anticipation & practical comforts* | • **Holiday Mood Selector**: *Slow mornings*, *Pool afternoons*, *Out exploring*.<br>• Dynamic card updates with genuine photography and verified inspiration notes.<br>• **10 Confirmed Amenities** with custom illustrated SVG icons (Wi-Fi, Pool, AC, Parking, EV, Workspace, Kitchen, Washer, TV, Balcony) with tap-to-expand details.<br>• **North Goa Local Guide**: Beaches, Cafés & Bistros, Markets, Heritage. | • Full kitchen access<br>• Dedicated workspace<br>• High-speed Wi-Fi<br>• Washing machine<br>• Free on-site parking & EV charger |
+| **Pricing & Calendar** | **“Plan your Goa holiday dates.”**<br>*Transparency & direct booking* | • **Interactive Monthly Calendar** (October 2026 reference, month prev/next navigation).<br>• Clear visual indicator for available vs reserved/booked dates.<br>• Click-to-pick check-in and checkout dates.<br>• Quick preset buttons (*Late Oct Break*, *Nov Escape*, *Mid-Nov Holiday*).<br>• **Dynamic Price Calculator**: calculates weekday vs weekend nightly rates, extra guest fees (>6 guests), cleaning fee, security deposit, and estimated total in real time.<br>• Direct booking savings badge (*Save ~14%*). | • Direct WhatsApp inquiry modal pre-filled with chosen dates, guests, and calculated total for host Snigdha.<br>• Accepted payment modes: UPI / GPay, Net Banking, Cards, Airbnb.<br>• Easily customizable rates & dates in `content.ts`. |
+| **Chapter 06** | **“Good days look like this.”**<br>*Warm sunset & confident booking* | • Sunset sky (peach to warm coral), golden sun, floating teal ring.<br>• Key stay facts: Check-in 2:00 PM, Checkout 11:00 AM, 9 Guests max, Host Snigdha, Coral Sky Stays.<br>• Primary CTA: *“Check dates on Airbnb ↗”* with verified supporting copy *“See current prices and availability on Airbnb.”*<br>• Accessible FAQ accordion with keyboard support. | • Check-in & checkout policies<br>• Cancellation & house rules via Airbnb |
 
 ---
 
-## 🛠️ Technical Verification & Standards
+## 🛠️ Verification & Quality Checks
 
-- **Build Status**: Verified clean production build (`dist/assets/index-lB72v3o9.css`, `dist/assets/index-CSBAXNgf.js`). Zero TypeScript or lint errors.
-- **Local Dev Server**: Running on `http://localhost:5173/` (HTTP 200).
-- **Responsive Breakpoints**: Tested on mobile (360px, 390px), tablet (768px), laptop (1024px), and desktop (1440px).
+- **Zero Errors / Clean Build**: `npm run build` compiled client bundle in ~600ms with zero errors.
+- **Clean Lint**: `npm run lint` passed with 0 warnings and 0 errors across all files.
+- **Local Dev Server**: Live and verified on `http://localhost:5173/` (HTTP 200).
+- **Responsive Layout**: Tested across mobile (360px–414px), tablet (768px), and desktop (1200px+).
 - **Mobile Experience**:
-  - Compact sticky bottom booking bar respecting `env(safe-area-inset-bottom)`.
-  - Accessible mobile hamburger menu with smooth slide-down animation.
-  - Generous touch targets (>44px) on all buttons and interactive tabs.
-- **Accessibility & Motion**:
-  - Skip-to-content link for keyboard and screen reader users.
-  - Floating **“⏸ Pause Motion” / “▶ Resume Motion”** toggle button.
-  - Automatically respects `prefers-reduced-motion: reduce` by disabling parallax, bobbing, swaying, and ripple loops.
-  - Full keyboard control on Lightbox (`Escape`, `ArrowLeft`, `ArrowRight`) and FAQ accordion (`Enter`, `Space`).
-- **No Fabricated Information**:
-  - No invented prices, reviews, star ratings, or beach proximity claims.
-  - Only genuine property photos from the provided assets folder (`/public/images/`).
-  - Airbnb link consistently points to `https://www.airbnb.co.in/rooms/1784790527129114343`.
+  - Sticky bottom mobile booking bar with quick facts and direct CTA.
+  - Slide-out mobile navigation drawer with Coral Sky Stays branding.
+  - Large touch targets (>44px) across all interactive elements.
+- **Motion & Accessibility**:
+  - Skip-to-content link.
+  - Floating **“⏸ Pause Motion” / “▶ Resume Motion”** control.
+  - Automatically respects `prefers-reduced-motion: reduce`.
+  - Accessible Lightbox modal with category filters (`All`, `Pool`, `Living`, `Bedrooms`, `Kitchen`), keyboard navigation (`Escape`, `ArrowLeft`, `ArrowRight`), and accessible close button.
+- **Authentic Photography**: Uses exclusively genuine photographs from `C:\Users\heman\Downloads\Edited` copied into `public/images/`. No stock watermarks or altered rooms.
 
 ---
 
-## 📋 What the Owner Needs to Supply (Pending Items)
+## 📋 Short List of Remaining Owner-Supplied Information
 
-1. **Custom Domain**: Ready to deploy to your preferred hosting (Vercel, Netlify, or Cloudflare Pages) once your domain (e.g. `casamaregoa.com`) is ready.
-2. **Contact & WhatsApp Number**: When ready to accept direct inquiries, add the number in `src/content.ts`.
-3. **Confirmed Travel Times**: Omitted specific journey times from the site until confirmed by the owner.
-4. **Custom SVG Logo / Favicon**: Currently using a sunshine/wave emblem; can be replaced with a custom brand monogram once finalized.
+1. **Host WhatsApp Phone Number**:
+   - Currently set to placeholder `919876543210` in `PRICING_CONFIG.whatsappInquiryNumber` inside `src/content.ts`. Update this with Snigdha's direct WhatsApp number to receive booking messages.
+2. **Current Calendar Booked Dates**:
+   - Add current season bookings into `INITIAL_BOOKED_DATES` in `src/content.ts` so they show as reserved on the interactive calendar.
+3. **Seasonal Rates Confirmation**:
+   - Verify default rates in `PRICING_CONFIG` (currently set to ₹18,500 weekday, ₹22,000 weekend, ₹2,500 cleaning, ₹10,000 refundable deposit).
+4. **Custom Domain (When Ready)**:
+   - Provide your domain (e.g. `casamarestays.com` or `coralskystays.com`) to link to your hosting provider.

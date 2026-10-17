@@ -7,31 +7,31 @@
 
 /* ─── TOKENS ─────────────────────────────────────────────── */
 :root {
-  --cream:        #FFF7E6;
+  --cream:        #FFF8E9;
   --cream-mid:    #F5EDD8;
   --cream-deep:   #EDE0C4;
-  --teal:         #087F8C;
-  --teal-dark:    #065E69;
-  --teal-bright:  #0DA3B3;
-  --teal-pale:    #E0F5F7;
-  --yellow:       #FFC857;
-  --yellow-deep:  #F0A500;
-  --coral:        #FF6B6B;
-  --coral-dark:   #E85252;
-  --coral-pale:   #FFE8E8;
-  --green:        #26734D;
-  --green-mid:    #1D5C3C;
-  --sky:          #BDEBFA;
-  --sky-mid:      #8DD6F0;
-  --sky-deep:     #6BBFDD;
-  --peach:        #FFB347;
-  --peach-warm:   #FF8C42;
-  --terracotta:   #C8603A;
-  --ink:          #173A40;
-  --ink-light:    #2A5560;
-  --ink-muted:    #4A7580;
+  --teal:         #173E3B;
+  --teal-dark:    #0F2B29;
+  --teal-bright:  #1F5450;
+  --teal-pale:    #E8F5F0;
+  --yellow:       #F7D664;
+  --yellow-deep:  #E5C040;
+  --coral:        #F16D4D;
+  --coral-dark:   #D85A3C;
+  --coral-pale:   #FDEEE8;
+  --green:        #397B58;
+  --green-mid:    #2D6346;
+  --sky:          #8AD8CE;
+  --sky-mid:      #6BC4B8;
+  --sky-deep:     #4AAFA2;
+  --peach:        #F7B795;
+  --peach-warm:   #F09B76;
+  --terracotta:   #C85A3A;
+  --ink:          #173E3B;
+  --ink-light:    #2A5550;
+  --ink-muted:    #4A756E;
   --white:        #FFFFFF;
-  --tile-accent:  #087F8C;
+  --tile-accent:  #173E3B;
 
   --font-display: 'Fredoka', 'Trebuchet MS', sans-serif;
   --font-body:    'DM Sans', 'Helvetica Neue', Arial, sans-serif;
@@ -54,11 +54,11 @@
   --radius-2xl:  56px;
   --radius-pill: 999px;
 
-  --shadow-sm:   0 2px 8px rgba(23,58,64,.10);
-  --shadow-md:   0 4px 20px rgba(23,58,64,.14);
-  --shadow-lg:   0 8px 40px rgba(23,58,64,.20);
-  --shadow-xl:   0 16px 64px rgba(23,58,64,.26);
-  --shadow-photo: 0 12px 48px rgba(23,58,64,.22), 0 2px 8px rgba(23,58,64,.12);
+  --shadow-sm:   0 2px 8px rgba(23,62,59,.10);
+  --shadow-md:   0 4px 20px rgba(23,62,59,.14);
+  --shadow-lg:   0 8px 40px rgba(23,62,59,.20);
+  --shadow-xl:   0 16px 64px rgba(23,62,59,.26);
+  --shadow-photo: 0 12px 48px rgba(23,62,59,.22), 0 2px 8px rgba(23,62,59,.12);
 
   --transition-fast:   150ms ease;
   --transition-normal: 220ms ease;
@@ -129,36 +129,36 @@ p  { font-size: clamp(15px, 1.1vw, 17px); line-height: 1.72; }
 .btn:active { transform: scale(0.97); }
 
 .btn-primary {
-  background: var(--teal);
+  background: var(--coral);
   color: var(--white);
-  border-color: var(--teal);
-  box-shadow: 0 4px 16px rgba(8,127,140,.30);
+  border-color: var(--coral);
+  box-shadow: 0 4px 16px rgba(241,109,77,.30);
 }
 .btn-primary:hover {
-  background: var(--teal-dark);
-  border-color: var(--teal-dark);
+  background: var(--coral-dark);
+  border-color: var(--coral-dark);
   transform: translateY(-2px);
-  box-shadow: 0 6px 24px rgba(8,127,140,.40);
+  box-shadow: 0 6px 24px rgba(241,109,77,.40);
 }
 
 .btn-coral {
   background: var(--coral);
   color: var(--white);
   border-color: var(--coral);
-  box-shadow: 0 4px 16px rgba(255,107,107,.30);
+  box-shadow: 0 4px 16px rgba(241,109,77,.30);
 }
 .btn-coral:hover {
   background: var(--coral-dark);
   border-color: var(--coral-dark);
   transform: translateY(-2px);
-  box-shadow: 0 6px 24px rgba(255,107,107,.40);
+  box-shadow: 0 6px 24px rgba(241,109,77,.40);
 }
 
 .btn-yellow {
   background: var(--yellow);
   color: var(--ink);
   border-color: var(--yellow);
-  box-shadow: 0 4px 16px rgba(255,200,87,.35);
+  box-shadow: 0 4px 16px rgba(247,214,100,.35);
 }
 .btn-yellow:hover {
   background: var(--yellow-deep);
@@ -244,8 +244,8 @@ p  { font-size: clamp(15px, 1.1vw, 17px); line-height: 1.72; }
   100% { transform: scale(2.2); opacity: 0; }
 }
 @keyframes sunGlow {
-  0%, 100% { filter: drop-shadow(0 0 12px rgba(255,200,87,.5)); }
-  50% { filter: drop-shadow(0 0 28px rgba(255,200,87,.9)); }
+  0%, 100% { filter: drop-shadow(0 0 12px rgba(247,214,100,.5)); }
+  50% { filter: drop-shadow(0 0 28px rgba(247,214,100,.9)); }
 }
 @keyframes drift {
   0%, 100% { transform: translateX(0) translateY(0); }
@@ -279,7 +279,7 @@ p  { font-size: clamp(15px, 1.1vw, 17px); line-height: 1.72; }
   position: fixed;
   bottom: 108px;
   right: 16px;
-  background: rgba(23,58,64,.82);
+  background: rgba(23,62,59,.82);
   color: var(--white);
   border: none;
   border-radius: var(--radius-pill);
@@ -301,14 +301,14 @@ p  { font-size: clamp(15px, 1.1vw, 17px); line-height: 1.72; }
   position: fixed;
   bottom: 0; left: 0; right: 0;
   background: var(--white);
-  border-top: 1px solid rgba(23,58,64,.12);
+  border-top: 1px solid rgba(23,62,59,.12);
   padding: 12px var(--space-md);
   padding-bottom: max(12px, env(safe-area-inset-bottom));
   z-index: 100;
   align-items: center;
   justify-content: space-between;
   gap: var(--space-md);
-  box-shadow: 0 -4px 24px rgba(23,58,64,.10);
+  box-shadow: 0 -4px 24px rgba(23,62,59,.10);
 }
 @media (max-width: 900px) {
   .mobile-bar { display: flex; }
@@ -324,7 +324,7 @@ p  { font-size: clamp(15px, 1.1vw, 17px); line-height: 1.72; }
 
 /* ─── TILE PATTERN ───────────────────────────────────────── */
 .tile-bg {
-  background-image: radial-gradient(circle, rgba(8,127,140,.06) 1.5px, transparent 1.5px);
+  background-image: radial-gradient(circle, rgba(23,62,59,.06) 1.5px, transparent 1.5px);
   background-size: 24px 24px;
 }
 
