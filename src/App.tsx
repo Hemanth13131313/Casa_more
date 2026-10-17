@@ -44,7 +44,7 @@ const CoralSkyLogo = ({
     <path
       d="M20 62 A30 30 0 0 1 80 62"
       fill="none"
-      stroke="#FFF8E9"
+      stroke="#FFF7E8"
       strokeWidth="4.5"
       strokeLinecap="round"
     />
@@ -52,7 +52,7 @@ const CoralSkyLogo = ({
     <path
       d="M10 65 Q 26 55, 42 63 T 74 61 Q 84 58, 90 62"
       fill="none"
-      stroke="#FFF8E9"
+      stroke="#FFF7E8"
       strokeWidth="4"
       strokeLinecap="round"
     />
@@ -60,7 +60,7 @@ const CoralSkyLogo = ({
     <path
       d="M16 73 Q 32 64, 48 71 T 82 69"
       fill="none"
-      stroke="#FFF8E9"
+      stroke="#FFF7E8"
       strokeWidth="3.2"
       strokeLinecap="round"
     />
@@ -68,17 +68,17 @@ const CoralSkyLogo = ({
     <path
       d="M74 63 Q 82 50, 88 42"
       fill="none"
-      stroke="#FFF8E9"
+      stroke="#FFF7E8"
       strokeWidth="3"
       strokeLinecap="round"
     />
-    <path d="M78 55 Q 86 52, 90 49" stroke="#FFF8E9" strokeWidth="2.5" strokeLinecap="round" />
-    <path d="M75 51 Q 82 45, 87 40" stroke="#FFF8E9" strokeWidth="2.5" strokeLinecap="round" />
-    <path d="M82 47 Q 88 39, 93 36" stroke="#FFF8E9" strokeWidth="2.2" strokeLinecap="round" />
+    <path d="M78 55 Q 86 52, 90 49" stroke="#FFF7E8" strokeWidth="2.5" strokeLinecap="round" />
+    <path d="M75 51 Q 82 45, 87 40" stroke="#FFF7E8" strokeWidth="2.5" strokeLinecap="round" />
+    <path d="M82 47 Q 88 39, 93 36" stroke="#FFF7E8" strokeWidth="2.2" strokeLinecap="round" />
   </svg>
 );
 
-/** Striped Coral & Cream Swim Ring */
+/** Striped Terracotta & Cream Swim Ring */
 const CoralTube = ({
   className = '',
   style = {},
@@ -98,24 +98,24 @@ const CoralTube = ({
     role="presentation"
   >
     {/* Drop shadow */}
-    <ellipse cx="60" cy="106" rx="42" ry="10" fill="rgba(23, 62, 59, 0.16)" />
-    {/* Outer tube circle */}
-    <circle cx="60" cy="56" r="48" fill="#F16D4D" stroke="#173E3B" strokeWidth="3" />
-    {/* Alternating cream stripes */}
+    <ellipse cx="60" cy="106" rx="42" ry="10" fill="rgba(36, 60, 56, 0.16)" />
+    {/* Outer tube circle: Warm Terracotta */}
+    <circle cx="60" cy="56" r="48" fill="#CC7455" stroke="#243C38" strokeWidth="3" />
+    {/* Alternating Coconut Cream stripes */}
     <path
       d="M60 8 A48 48 0 0 1 108 56 L88 56 A28 28 0 0 0 60 28 Z"
-      fill="#FFF8E9"
-      stroke="#173E3B"
+      fill="#FFF7E8"
+      stroke="#243C38"
       strokeWidth="2.5"
     />
     <path
       d="M60 104 A48 48 0 0 1 12 56 L32 56 A28 28 0 0 0 60 84 Z"
-      fill="#FFF8E9"
-      stroke="#173E3B"
+      fill="#FFF7E8"
+      stroke="#243C38"
       strokeWidth="2.5"
     />
-    {/* Inner hole with pool water reflection */}
-    <circle cx="60" cy="56" r="28" fill="#8AD8CE" stroke="#173E3B" strokeWidth="3" />
+    {/* Inner hole with Pool Turquoise reflection */}
+    <circle cx="60" cy="56" r="28" fill="#86CDC6" stroke="#243C38" strokeWidth="3" />
     {/* Inflated gloss highlight */}
     <path
       d="M36 34 Q60 18, 84 34"
@@ -125,11 +125,11 @@ const CoralTube = ({
       fill="none"
     />
     {/* Subtle 3D inner shade */}
-    <circle cx="60" cy="56" r="28" fill="none" stroke="rgba(23, 62, 59, 0.15)" strokeWidth="4" />
+    <circle cx="60" cy="56" r="28" fill="none" stroke="rgba(36, 60, 56, 0.15)" strokeWidth="4" />
   </svg>
 );
 
-/** Mango Yellow & Lagoon Blue Dots Swim Ring */
+/** Golden Ochre & Deep Peacock Teal Pattern Swim Ring */
 const YellowTube = ({
   className = '',
   style = {},
@@ -146,10 +146,10 @@ const YellowTube = ({
     role="presentation"
   >
     {/* Drop shadow */}
-    <ellipse cx="60" cy="104" rx="40" ry="9" fill="rgba(23, 62, 59, 0.14)" />
-    {/* Tube outer body */}
-    <circle cx="60" cy="56" r="46" fill="#F7D664" stroke="#173E3B" strokeWidth="3" />
-    {/* Polka dots */}
+    <ellipse cx="60" cy="104" rx="40" ry="9" fill="rgba(36, 60, 56, 0.14)" />
+    {/* Tube outer body: Golden Ochre */}
+    <circle cx="60" cy="56" r="46" fill="#E2B34C" stroke="#243C38" strokeWidth="3" />
+    {/* Polka dots / patterns: Deep Peacock Teal */}
     {[0, 60, 120, 180, 240, 300].map((angle) => {
       const rad = (angle * Math.PI) / 180;
       const x = 60 + 36 * Math.cos(rad);
@@ -160,14 +160,14 @@ const YellowTube = ({
           cx={x}
           cy={y}
           r="5.5"
-          fill="#173E3B"
-          stroke="#173E3B"
+          fill="#205C60"
+          stroke="#243C38"
           strokeWidth="1.5"
         />
       );
     })}
-    {/* Inner hole */}
-    <circle cx="60" cy="56" r="26" fill="#8AD8CE" stroke="#173E3B" strokeWidth="3" />
+    {/* Inner hole: Pool Turquoise */}
+    <circle cx="60" cy="56" r="26" fill="#86CDC6" stroke="#243C38" strokeWidth="3" />
     {/* Highlight curve */}
     <path
       d="M38 32 Q60 20, 82 32"
@@ -179,7 +179,7 @@ const YellowTube = ({
   </svg>
 );
 
-/** Lagoon Teal Tropical Swim Ring */
+/** Lagoon Pool Turquoise Swim Ring */
 const TealTube = ({
   className = '',
   style = {},
@@ -195,15 +195,15 @@ const TealTube = ({
     aria-hidden="true"
     role="presentation"
   >
-    <ellipse cx="60" cy="104" rx="38" ry="8" fill="rgba(23, 62, 59, 0.12)" />
-    <circle cx="60" cy="56" r="46" fill="#8AD8CE" stroke="#173E3B" strokeWidth="3" />
-    {/* Mini tropical hibiscus/palm prints */}
-    <circle cx="40" cy="38" r="4" fill="#F16D4D" />
-    <circle cx="80" cy="40" r="4" fill="#F7D664" />
-    <circle cx="78" cy="74" r="4" fill="#F16D4D" />
-    <circle cx="42" cy="74" r="4" fill="#F7D664" />
+    <ellipse cx="60" cy="104" rx="38" ry="8" fill="rgba(36, 60, 56, 0.12)" />
+    <circle cx="60" cy="56" r="46" fill="#86CDC6" stroke="#243C38" strokeWidth="3" />
+    {/* Tropical accents: Warm Terracotta & Golden Ochre */}
+    <circle cx="40" cy="38" r="4" fill="#CC7455" />
+    <circle cx="80" cy="40" r="4" fill="#E2B34C" />
+    <circle cx="78" cy="74" r="4" fill="#CC7455" />
+    <circle cx="42" cy="74" r="4" fill="#E2B34C" />
     {/* Inner hole */}
-    <circle cx="60" cy="56" r="26" fill="#FFF8E9" stroke="#173E3B" strokeWidth="3" />
+    <circle cx="60" cy="56" r="26" fill="#FFF7E8" stroke="#243C38" strokeWidth="3" />
     <path
       d="M38 32 Q60 20, 82 32"
       stroke="rgba(255, 255, 255, 0.65)"
@@ -246,38 +246,38 @@ const SunIllustration = ({
           y1={y1}
           x2={x2}
           y2={y2}
-          stroke={sunset ? '#F16D4D' : '#F7D664'}
+          stroke={sunset ? '#CC7455' : '#E2B34C'}
           strokeWidth="4"
           strokeLinecap="round"
         />
       );
     })}
-    {/* Sun Core */}
+    {/* Sun Core: Golden Ochre */}
     <circle
       cx="70"
       cy="70"
       r="36"
-      fill={sunset ? 'url(#sunsetSunGrad)' : '#F7D664'}
-      stroke="#173E3B"
+      fill={sunset ? 'url(#sunsetSunGrad)' : '#E2B34C'}
+      stroke="#243C38"
       strokeWidth="3"
     />
     {/* Cheek blush */}
-    <circle cx="56" cy="74" r="5" fill={sunset ? '#D85A3C' : '#F7B795'} opacity="0.6" />
-    <circle cx="84" cy="74" r="5" fill={sunset ? '#D85A3C' : '#F7B795'} opacity="0.6" />
+    <circle cx="56" cy="74" r="5" fill={sunset ? '#B65F42' : '#EBB097'} opacity="0.7" />
+    <circle cx="84" cy="74" r="5" fill={sunset ? '#B65F42' : '#EBB097'} opacity="0.7" />
     {/* Cute eyes & smile */}
-    <circle cx="58" cy="66" r="3" fill="#173E3B" />
-    <circle cx="82" cy="66" r="3" fill="#173E3B" />
+    <circle cx="58" cy="66" r="3" fill="#243C38" />
+    <circle cx="82" cy="66" r="3" fill="#243C38" />
     <path
       d="M65 74 Q70 80, 75 74"
-      stroke="#173E3B"
+      stroke="#243C38"
       strokeWidth="2.5"
       strokeLinecap="round"
       fill="none"
     />
     <defs>
       <linearGradient id="sunsetSunGrad" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%" stopColor="#F7D664" />
-        <stop offset="100%" stopColor="#F16D4D" />
+        <stop offset="0%" stopColor="#E2B34C" />
+        <stop offset="100%" stopColor="#CC7455" />
       </linearGradient>
     </defs>
   </svg>
@@ -301,59 +301,59 @@ const PalmIllustration = ({
     aria-hidden="true"
     role="presentation"
   >
-    {/* Trunk */}
+    {/* Trunk: Tropical Green */}
     <path
       d={
         swayRight
           ? 'M70 235 Q78 160, 85 110 Q90 60, 95 30'
           : 'M90 235 Q82 160, 75 110 Q70 60, 65 30'
       }
-      stroke="#397B58"
+      stroke="#587653"
       strokeWidth="11"
       strokeLinecap="round"
       fill="none"
     />
-    {/* Palm fronds */}
+    {/* Palm fronds: Tropical Green */}
     <g transform={swayRight ? 'translate(95, 30)' : 'translate(65, 30)'}>
       {/* Frond 1 */}
       <path
         d="M0 0 Q-40 -40, -75 -25 Q-50 -10, 0 0"
-        fill="#397B58"
-        stroke="#173E3B"
+        fill="#587653"
+        stroke="#243C38"
         strokeWidth="2"
       />
       {/* Frond 2 */}
       <path
         d="M0 0 Q-15 -60, 15 -65 Q10 -35, 0 0"
-        fill="#397B58"
-        stroke="#173E3B"
+        fill="#587653"
+        stroke="#243C38"
         strokeWidth="2"
       />
       {/* Frond 3 */}
       <path
         d="M0 0 Q45 -55, 75 -25 Q50 -5, 0 0"
-        fill="#397B58"
-        stroke="#173E3B"
+        fill="#587653"
+        stroke="#243C38"
         strokeWidth="2"
       />
       {/* Frond 4 */}
       <path
         d="M0 0 Q60 -10, 75 25 Q45 20, 0 0"
-        fill="#397B58"
-        stroke="#173E3B"
+        fill="#587653"
+        stroke="#243C38"
         strokeWidth="2"
       />
       {/* Frond 5 */}
       <path
         d="M0 0 Q-50 10, -70 35 Q-40 20, 0 0"
-        fill="#397B58"
-        stroke="#173E3B"
+        fill="#587653"
+        stroke="#243C38"
         strokeWidth="2"
       />
       {/* Coconuts */}
-      <circle cx="-6" cy="6" r="6" fill="#7A5D12" stroke="#173E3B" strokeWidth="1.8" />
-      <circle cx="6" cy="8" r="6.5" fill="#7A5D12" stroke="#173E3B" strokeWidth="1.8" />
-      <circle cx="1" cy="14" r="5.5" fill="#7A5D12" stroke="#173E3B" strokeWidth="1.8" />
+      <circle cx="-6" cy="6" r="6" fill="#6B4F2C" stroke="#243C38" strokeWidth="1.8" />
+      <circle cx="6" cy="8" r="6.5" fill="#6B4F2C" stroke="#243C38" strokeWidth="1.8" />
+      <circle cx="1" cy="14" r="5.5" fill="#6B4F2C" stroke="#243C38" strokeWidth="1.8" />
     </g>
   </svg>
 );
@@ -377,34 +377,34 @@ const TravelBag = ({
     {/* Handle */}
     <path
       d="M38 36 V24 C38 18, 62 18, 62 24 V36"
-      stroke="#173E3B"
+      stroke="#243C38"
       strokeWidth="3.5"
       fill="none"
       strokeLinecap="round"
     />
-    {/* Main body */}
+    {/* Main body: Golden Ochre */}
     <rect
       x="16"
       y="36"
       width="68"
       height="52"
       rx="12"
-      fill="#F7D664"
-      stroke="#173E3B"
+      fill="#E2B34C"
+      stroke="#243C38"
       strokeWidth="3"
     />
-    {/* Leather straps */}
-    <rect x="28" y="36" width="8" height="52" fill="#D4861A" stroke="#173E3B" strokeWidth="2" />
-    <rect x="64" y="36" width="8" height="52" fill="#D4861A" stroke="#173E3B" strokeWidth="2" />
+    {/* Leather straps: Warm Terracotta */}
+    <rect x="28" y="36" width="8" height="52" fill="#CC7455" stroke="#243C38" strokeWidth="2" />
+    <rect x="64" y="36" width="8" height="52" fill="#CC7455" stroke="#243C38" strokeWidth="2" />
     {/* Brass buckle */}
-    <rect x="29" y="58" width="6" height="8" rx="2" fill="#FFF8E9" stroke="#173E3B" strokeWidth="1.5" />
-    <rect x="65" y="58" width="6" height="8" rx="2" fill="#FFF8E9" stroke="#173E3B" strokeWidth="1.5" />
+    <rect x="29" y="58" width="6" height="8" rx="2" fill="#FFF7E8" stroke="#243C38" strokeWidth="1.5" />
+    <rect x="65" y="58" width="6" height="8" rx="2" fill="#FFF7E8" stroke="#243C38" strokeWidth="1.5" />
     {/* Luggage tag */}
-    <path d="M48 36 L52 48 L44 48 Z" fill="#F16D4D" stroke="#173E3B" strokeWidth="1.5" />
+    <path d="M48 36 L52 48 L44 48 Z" fill="#CC7455" stroke="#243C38" strokeWidth="1.5" />
   </svg>
 );
 
-/** Striped Beach Umbrella */
+/** Striped Cream & Terracotta Beach Umbrella */
 const StripedUmbrella = ({
   className = '',
   style = {},
@@ -421,22 +421,22 @@ const StripedUmbrella = ({
     role="presentation"
   >
     {/* Pole */}
-    <line x1="50" y1="42" x2="50" y2="114" stroke="#173E3B" strokeWidth="3.5" strokeLinecap="round" />
-    {/* Canopy */}
+    <line x1="50" y1="42" x2="50" y2="114" stroke="#243C38" strokeWidth="3.5" strokeLinecap="round" />
+    {/* Canopy: Warm Terracotta */}
     <path
       d="M10 44 Q50 8, 90 44 Z"
-      fill="#F16D4D"
-      stroke="#173E3B"
+      fill="#CC7455"
+      stroke="#243C38"
       strokeWidth="2.5"
     />
     {/* Cream stripes */}
-    <path d="M30 44 Q44 20, 50 12 Q56 20, 70 44 Z" fill="#FFF8E9" stroke="#173E3B" strokeWidth="2" />
-    {/* Finial top */}
-    <circle cx="50" cy="11" r="3" fill="#F7D664" stroke="#173E3B" strokeWidth="1.5" />
+    <path d="M30 44 Q44 20, 50 12 Q56 20, 70 44 Z" fill="#FFF7E8" stroke="#243C38" strokeWidth="2" />
+    {/* Finial top: Golden Ochre */}
+    <circle cx="50" cy="11" r="3" fill="#E2B34C" stroke="#243C38" strokeWidth="1.5" />
   </svg>
 );
 
-/** Striped Beach Towel */
+/** Striped Terracotta Beach Towel */
 const StripedTowel = ({
   className = '',
   style = {},
@@ -452,15 +452,15 @@ const StripedTowel = ({
     aria-hidden="true"
     role="presentation"
   >
-    <rect x="10" y="10" width="80" height="40" rx="4" fill="#F16D4D" stroke="#173E3B" strokeWidth="2" />
-    <rect x="25" y="10" width="12" height="40" fill="#FFF8E9" />
-    <rect x="47" y="10" width="12" height="40" fill="#FFF8E9" />
-    <rect x="69" y="10" width="12" height="40" fill="#FFF8E9" />
+    <rect x="10" y="10" width="80" height="40" rx="4" fill="#CC7455" stroke="#243C38" strokeWidth="2" />
+    <rect x="25" y="10" width="12" height="40" fill="#FFF7E8" />
+    <rect x="47" y="10" width="12" height="40" fill="#FFF7E8" />
+    <rect x="69" y="10" width="12" height="40" fill="#FFF7E8" />
     {/* Fringe ends */}
-    <line x1="10" y1="14" x2="6" y2="14" stroke="#173E3B" strokeWidth="1.5" />
-    <line x1="10" y1="24" x2="6" y2="24" stroke="#173E3B" strokeWidth="1.5" />
-    <line x1="10" y1="34" x2="6" y2="34" stroke="#173E3B" strokeWidth="1.5" />
-    <line x1="10" y1="44" x2="6" y2="44" stroke="#173E3B" strokeWidth="1.5" />
+    <line x1="10" y1="14" x2="6" y2="14" stroke="#243C38" strokeWidth="1.5" />
+    <line x1="10" y1="24" x2="6" y2="24" stroke="#243C38" strokeWidth="1.5" />
+    <line x1="10" y1="34" x2="6" y2="34" stroke="#243C38" strokeWidth="1.5" />
+    <line x1="10" y1="44" x2="6" y2="44" stroke="#243C38" strokeWidth="1.5" />
   </svg>
 );
 
@@ -480,24 +480,24 @@ const CoconutDrink = ({
     aria-hidden="true"
     role="presentation"
   >
-    {/* Straw */}
-    <path d="M48 20 L58 6 L64 10" stroke="#F16D4D" strokeWidth="3" strokeLinecap="round" fill="none" />
+    {/* Straw: Warm Terracotta */}
+    <path d="M48 20 L58 6 L64 10" stroke="#CC7455" strokeWidth="3" strokeLinecap="round" fill="none" />
     {/* Coconut body */}
     <path
       d="M20 40 C 20 62, 60 62, 60 40 C 60 38, 20 38, 20 40 Z"
-      fill="#7A5D12"
-      stroke="#173E3B"
+      fill="#6B4F2C"
+      stroke="#243C38"
       strokeWidth="2.5"
     />
     {/* Inner coconut water top */}
-    <ellipse cx="40" cy="38" rx="19" ry="6" fill="#FFF8E9" stroke="#173E3B" strokeWidth="1.8" />
+    <ellipse cx="40" cy="38" rx="19" ry="6" fill="#FFF7E8" stroke="#243C38" strokeWidth="1.8" />
     {/* Lime slice */}
-    <circle cx="28" cy="32" r="7" fill="#8AD8CE" stroke="#173E3B" strokeWidth="1.5" />
-    <circle cx="28" cy="32" r="4.5" fill="#397B58" />
+    <circle cx="28" cy="32" r="7" fill="#86CDC6" stroke="#243C38" strokeWidth="1.5" />
+    <circle cx="28" cy="32" r="4.5" fill="#587653" />
   </svg>
 );
 
-/** Cool Sunglasses */
+/** Cool Peacock Teal Sunglasses */
 const Sunglasses = ({
   className = '',
   style = {},
@@ -513,16 +513,16 @@ const Sunglasses = ({
     aria-hidden="true"
     role="presentation"
   >
-    {/* Left Frame */}
-    <rect x="8" y="8" width="32" height="22" rx="9" fill="#173E3B" stroke="#173E3B" strokeWidth="2" />
-    {/* Right Frame */}
-    <rect x="50" y="8" width="32" height="22" rx="9" fill="#173E3B" stroke="#173E3B" strokeWidth="2" />
+    {/* Left Frame: Deep Peacock Teal */}
+    <rect x="8" y="8" width="32" height="22" rx="9" fill="#205C60" stroke="#243C38" strokeWidth="2" />
+    {/* Right Frame: Deep Peacock Teal */}
+    <rect x="50" y="8" width="32" height="22" rx="9" fill="#205C60" stroke="#243C38" strokeWidth="2" />
     {/* Bridge */}
-    <path d="M40 16 Q 45 13, 50 16" stroke="#173E3B" strokeWidth="3" fill="none" strokeLinecap="round" />
-    {/* Left Lens Reflection */}
-    <ellipse cx="20" cy="18" rx="9" ry="6" fill="#8AD8CE" opacity="0.8" />
-    {/* Right Lens Reflection */}
-    <ellipse cx="62" cy="18" rx="9" ry="6" fill="#8AD8CE" opacity="0.8" />
+    <path d="M40 16 Q 45 13, 50 16" stroke="#243C38" strokeWidth="3" fill="none" strokeLinecap="round" />
+    {/* Left Lens Reflection: Pool Turquoise */}
+    <ellipse cx="20" cy="18" rx="9" ry="6" fill="#86CDC6" opacity="0.8" />
+    {/* Right Lens Reflection: Pool Turquoise */}
+    <ellipse cx="62" cy="18" rx="9" ry="6" fill="#86CDC6" opacity="0.8" />
   </svg>
 );
 
@@ -1350,7 +1350,7 @@ Please confirm availability and sharing payment details (UPI/Bank Transfer). Tha
         </section>
 
         {/* Transition into Chapter 2 */}
-        <WaveTransition fillColor="#FFF8E9" bg="#FFF8E9" />
+        <WaveTransition fillColor="#FFF7E8" bg="#FFF7E8" />
 
         {/* ==========================================================
             CHAPTER TWO: "Drop your bags. You're home."
@@ -1437,7 +1437,7 @@ Please confirm availability and sharing payment details (UPI/Bank Transfer). Tha
         </section>
 
         {/* Transition into Chapter 3 (Water) */}
-        <WaveTransition fillColor="#173E3B" bg="#FFF8E9" />
+        <WaveTransition fillColor="#1A4E52" bg="#FFF7E8" />
 
         {/* ==========================================================
             CHAPTER THREE: "Pool o'clock. All day."
@@ -1551,7 +1551,7 @@ Please confirm availability and sharing payment details (UPI/Bank Transfer). Tha
         </section>
 
         {/* Transition back to Warm Cream */}
-        <WaveTransition fillColor="#FFF8E9" bg="#173E3B" />
+        <WaveTransition fillColor="#FFF7E8" bg="#164447" />
 
         {/* ==========================================================
             CHAPTER FOUR: "Find your favourite corner."
@@ -1679,7 +1679,7 @@ Please confirm availability and sharing payment details (UPI/Bank Transfer). Tha
         </section>
 
         {/* Transition into Chapter 5 */}
-        <WaveTransition fillColor="#FFFFFF" bg="#FFF8E9" />
+        <WaveTransition fillColor="#FFFFFF" bg="#FFF7E8" />
 
         {/* ==========================================================
             CHAPTER FIVE: "What’s your Goa mood?" & Amenities
@@ -1825,7 +1825,7 @@ Please confirm availability and sharing payment details (UPI/Bank Transfer). Tha
         </section>
 
         {/* Transition into Calendar & Pricing Section */}
-        <WaveTransition fillColor="#FFF8E9" bg="#FFFFFF" />
+        <WaveTransition fillColor="#FFF7E8" bg="#FFFFFF" />
 
         {/* ==========================================================
             CALENDAR & PRICING SECTION: Dates, Pricing & Direct Reserve
@@ -1982,7 +1982,7 @@ Please confirm availability and sharing payment details (UPI/Bank Transfer). Tha
                     <span className="price-period">/ night (entire 3BHK villa)</span>
                   </div>
                   <div className="direct-savings-badge">
-                    <SvgIcon name="check" size={12} color="#2D6346" />
+                    <SvgIcon name="check" size={12} color="#587653" />
                     <span>Save ~14% booking via Coral Sky Stays</span>
                   </div>
                 </div>
@@ -2101,7 +2101,7 @@ Please confirm availability and sharing payment details (UPI/Bank Transfer). Tha
         </section>
 
         {/* Transition into Chapter 6 */}
-        <WaveTransition fillColor="#FFF8E9" bg="#FFF8E9" />
+        <WaveTransition fillColor="#FFF7E8" bg="#FFF7E8" />
 
         {/* ==========================================================
             CHAPTER SIX: "Good days look like this." (Sunset & Closing)
